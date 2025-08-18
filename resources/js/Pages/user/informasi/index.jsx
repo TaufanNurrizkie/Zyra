@@ -1,4 +1,4 @@
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+
 import UserLayout from '@/Layouts/UserLayout';
 import React, { useState } from "react";
 
