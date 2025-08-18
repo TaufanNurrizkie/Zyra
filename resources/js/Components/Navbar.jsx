@@ -6,7 +6,7 @@ export default function Navbar() {
     const [activeDropdown, setActiveDropdown] = useState(null);
 
     const menuItems = [
-        { href: "/dashboard", label: "Dashboard", icon: "🏠" },
+        { href: "/", label: "Dashboard", icon: "🏠" },
         { href: "/informasi", label: "Informasi", icon: "📰" },
         { 
             href: "/program", 

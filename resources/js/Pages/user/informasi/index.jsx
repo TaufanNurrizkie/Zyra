@@ -1,4 +1,5 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import UserLayout from '@/Layouts/UserLayout';
 import React, { useState } from "react";
 
 export default function Index() {
@@ -64,7 +65,7 @@ export default function Index() {
   ];
 
   return (
-    <AuthenticatedLayout>
+    <UserLayout>
       <div className="bg-gray-100 text-black min-h-screen">
         <main className="max-w-5xl mx-auto px-4 py-8 space-y-8">
           {/* Pengertian Zakat */}
@@ -122,6 +123,6 @@ export default function Index() {
           </section>
         </main>
       </div>
-    </AuthenticatedLayout>
+    </UserLayout>
   );
 }

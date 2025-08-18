@@ -1,3 +1,4 @@
+import Footer from "@/Components/footer.jsx";
 import Navbar from "../Components/Navbar.jsx";
 
 export default function UserLayout({ children }) {
@@ -5,6 +6,7 @@ export default function UserLayout({ children }) {
     <div>
       <Navbar />
       <main className="pt-20">{children}</main>
+      <Footer />
     </div>
   );
 }
