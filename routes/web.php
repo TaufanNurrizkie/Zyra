@@ -17,6 +17,11 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::get('/admin', function () {
+    return Inertia::render('admin/index');
+})->middleware(['auth', 'verified'])->name('admin');
+
+
 Route::get('/informasi', function () {
     return Inertia::render('user/informasi/index');
 })->middleware(['auth', 'verified'])->name('informasi');
