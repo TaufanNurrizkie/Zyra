@@ -23,7 +23,7 @@ export default function AdminLayout({ children }) {
                     <button
                         aria-label="Buka sidebar"
                         onClick={() => setOpen(true)}
-                        className="text-white focus:outline-none block md:hidden"
+                        className="text-white focus:outline-none"
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -40,6 +40,7 @@ export default function AdminLayout({ children }) {
                             />
                         </svg>
                     </button>
+
 
                     {/* Brand (kanan) */}
                     <div className="flex items-center space-x-2">
