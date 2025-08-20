@@ -7,6 +7,7 @@ import DistributionProgress from "@/Components/DistributionProgress";
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import SplitText from "@/Components/animasiText/SplitText";
+import MapMustahik from "@/Components/mapMustahik";
 
 export default function AdminIndex() {
     const containerRef = useRef(null);
@@ -32,7 +33,7 @@ export default function AdminIndex() {
                 {/* Judul */}
                 <SplitText
                     text="Dashboard Admin"
-                    className="text-8xl font-semibold text-center w-full"
+                    className="text-[50px] font-semibold text-center w-full"
                     delay={100}
                     duration={0.6}
                     ease="power3.out"
@@ -46,13 +47,13 @@ export default function AdminIndex() {
                 {/* Cards Statistik */}
                 <DashboardCards />
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
                     {/* Chart Distribusi */}
                     <ChartSection />
 
-                    {/* Progress Distribusi */}
-                    <DistributionProgress />
-                </div>
+
+                    <MapMustahik />
+                
 
                 {/* Tabel Mustahik */}
                 <MustahikTable />
