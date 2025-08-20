@@ -9,7 +9,9 @@ import { gsap } from "gsap";
 import SplitText from "@/Components/animasiText/SplitText";
 import MapMustahik from "@/Components/mapMustahik";
 
-export default function AdminIndex() {
+// ...import dll tetap sama
+
+export default function AdminIndex({ mustahik }) {   // ✅ terima props dari Inertia
     const containerRef = useRef(null);
 
     useEffect(() => {
@@ -30,7 +32,6 @@ export default function AdminIndex() {
                 ref={containerRef}
                 className="p-8 bg-gray-100 min-h-screen space-y-8"
             >
-                {/* Judul */}
                 <SplitText
                     text="Dashboard Admin"
                     className="text-[50px] font-semibold text-center w-full"
@@ -44,22 +45,15 @@ export default function AdminIndex() {
                     rootMargin="-100px"
                 />
 
-                {/* Cards Statistik */}
-                <DashboardCards />
+                <DashboardCards mustahik={mustahik}/>
+                <ChartSection />
 
-                
-                    {/* Chart Distribusi */}
-                    <ChartSection />
+                {/* ✅ lempar data mustahik ke MapMustahik */}
+                <MapMustahik mustahik={mustahik} />
 
-
-                    <MapMustahik />
-                
-
-                {/* Tabel Mustahik */}
-                <MustahikTable />
+                <MustahikTable mustahik={mustahik} />
             </div>
-
-            {/* Animasi masuk */}
         </AdminLayout>
     );
 }
+

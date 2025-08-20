@@ -1,10 +1,12 @@
 <?php
 
+use Inertia\Inertia;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Application;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MustahikController;
-use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 
 Route::get('/', function () {
@@ -19,9 +21,7 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/admin', function () {
-    return Inertia::render('admin/index');
-})->middleware(['auth', 'verified'])->name('admin');
+Route::get('/admin', [AdminController::class, 'index'])->middleware(['auth', 'verified'])->name('admin');
 
 Route::get('/informasi', function () {
     return Inertia::render('user/informasi/index');
@@ -67,5 +67,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/mustahik/import', [MustahikController::class, 'import'])
     ->name('mustahik.import');
 });
+
+// routes/web.php
+Route::middleware(['auth'])->group(function () {
+    Route::get('/admin/gallery', [GalleryController::class, 'index'])->name('admin.gallery.index');
+    Route::post('/admin/gallery', [GalleryController::class, 'store'])->name('admin.gallery.store');
+    Route::delete('/admin/gallery/{id}', [GalleryController::class, 'destroy'])->name('admin.gallery.destroy');
+});
+
 
 require __DIR__ . '/auth.php';
