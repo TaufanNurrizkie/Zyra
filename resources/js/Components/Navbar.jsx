@@ -6,21 +6,20 @@ export default function Navbar() {
     const [activeDropdown, setActiveDropdown] = useState(null);
 
     const menuItems = [
-        { href: "/", label: "Dashboard", icon: "🏠" },
-        { href: "/informasi", label: "Informasi", icon: "📰" },
+        { href: "/", label: "Dashboard" },
+        { href: "#informasi", label: "Informasi"},
         { 
-            href: "/program", 
+            href: "#program", 
             label: "Program", 
-            icon: "📋",
             dropdown: [
                 { href: "/program/bantuan", label: "Bantuan Sosial" },
                 { href: "/program/pendidikan", label: "Pendidikan" },
                 { href: "/program/kesehatan", label: "Kesehatan" }
             ]
         },
-        { href: "/gallery", label: "Gallery", icon: "🖼️" },
-        { href: "/tentang", label: "Tentang", icon: "ℹ️" },
-        { href: "/kontak", label: "Kontak", icon: "📞" }
+        { href: "#gallery", label: "Gallery"},
+        { href: "#tentang", label: "Tentang"},
+        { href: "#kontak", label: "Kontak"}
     ];
 
     const handleDropdownToggle = (index) => {

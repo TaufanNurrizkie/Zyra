@@ -1,11 +1,12 @@
-import { Head } from '@inertiajs/react';
-import AdminLayout from '@/Layouts/AdminLayout';
-import DashboardCards from '@/Components/DashboardCards';
-import ChartSection from '@/Components/ChartSection';
-import MustahikTable from '@/Components/MustahikTable';
-import DistributionProgress from '@/Components/DistributionProgress';
+import { Head } from "@inertiajs/react";
+import AdminLayout from "@/Layouts/AdminLayout";
+import DashboardCards from "@/Components/DashboardCards";
+import ChartSection from "@/Components/ChartSection";
+import MustahikTable from "@/Components/MustahikTable";
+import DistributionProgress from "@/Components/DistributionProgress";
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
+import SplitText from "@/Components/animasiText/SplitText";
 
 export default function AdminIndex() {
     const containerRef = useRef(null);
@@ -24,11 +25,23 @@ export default function AdminIndex() {
         <AdminLayout>
             <Head title="Admin Dashboard" />
 
-            <div ref={containerRef} className="p-8 bg-gray-100 min-h-screen space-y-8">
+            <div
+                ref={containerRef}
+                className="p-8 bg-gray-100 min-h-screen space-y-8"
+            >
                 {/* Judul */}
-                <h1 className="text-4xl font-extrabold text-green-700">
-                    📊 Dashboard Admin
-                </h1>
+                <SplitText
+                    text="Dashboard Admin"
+                    className="text-8xl font-semibold text-center w-full"
+                    delay={100}
+                    duration={0.6}
+                    ease="power3.out"
+                    splitType="chars"
+                    from={{ opacity: 0, y: 40 }}
+                    to={{ opacity: 1, y: 0 }}
+                    threshold={0.1}
+                    rootMargin="-100px"
+                />
 
                 {/* Cards Statistik */}
                 <DashboardCards />
@@ -44,6 +57,8 @@ export default function AdminIndex() {
                 {/* Tabel Mustahik */}
                 <MustahikTable />
             </div>
+
+            {/* Animasi masuk */}
         </AdminLayout>
     );
 }
