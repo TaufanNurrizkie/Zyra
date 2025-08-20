@@ -2,10 +2,10 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MustahikController;
+use App\Http\Controllers\LaporanDistribusiController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-
 
 Route::get('/', function () {
     return Inertia::render('Dashboard', [
@@ -15,57 +15,50 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/admin', function () {
-    return Inertia::render('admin/index');
-})->middleware(['auth', 'verified'])->name('admin');
+// Dashboard
+Route::get('/dashboard', fn () => Inertia::render('Dashboard'))
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
 
-Route::get('/informasi', function () {
-    return Inertia::render('user/informasi/index');
-})->middleware(['auth', 'verified'])->name('informasi');
+// Admin dashboard
+Route::get('/admin', fn () => Inertia::render('admin/index'))
+    ->middleware(['auth', 'verified'])
+    ->name('admin');
 
-Route::get('/kontak', function () {
-    return Inertia::render('user/kontak/index');
-})->name('user.kontak');
+// User pages
+Route::get('/informasi', fn () => Inertia::render('user/informasi/index'))
+    ->middleware(['auth', 'verified'])
+    ->name('informasi');
 
+Route::get('/kontak', fn () => Inertia::render('user/kontak/index'))
+    ->name('user.kontak');
+
+// Profile
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Route Mustahik
-Route::middleware(['auth', 'verified'])->group(function () {
+// Mustahik routes
+Route::middleware(['auth', 'verified'])->prefix('mustahik')->name('mustahik.')->group(function () {
+    Route::get('/', [MustahikController::class, 'index'])->name('index');
+    Route::get('/create', fn () => Inertia::render('admin/mustahik/Create'))->name('create');
+    Route::post('/', [MustahikController::class, 'store'])->name('store');
+    Route::get('/{id}/edit', fn ($id) => Inertia::render('admin/mustahik/Edit', [
+        'mustahik' => \App\Models\Mustahik::findOrFail($id)
+    ]))->name('edit');
+    Route::put('/{id}', [MustahikController::class, 'update'])->name('update');
+    Route::delete('/{id}', [MustahikController::class, 'destroy'])->name('destroy');
+    Route::post('/import', [MustahikController::class, 'import'])->name('import');
+});
 
-    Route::get('/mustahik', [MustahikController::class, 'index'])
-        ->name('mustahik.index');
-
-
-    Route::get('/mustahik/create', function () {
-        return Inertia::render('admin/mustahik/Create');
-    });
-
-    Route::post('/mustahik', [MustahikController::class, 'store'])
-        ->name('mustahik.store');
-    Route::get('/mustahik/{id}/edit', function ($id) {
-        return Inertia::render('admin/mustahik/Edit', [
-            'mustahik' => \App\Models\Mustahik::findOrFail($id)
-        ]);
-    })->name('mustahik.edit');
-    // Update
-    Route::put('/mustahik/{id}', [MustahikController::class, 'update'])
-        ->name('mustahik.update');
-
-    // Delete
-    Route::delete('/mustahik/{id}', [MustahikController::class, 'destroy'])
-        ->name('mustahik.destroy');
-
-    // Import
-    Route::post('/mustahik/import', [MustahikController::class, 'import'])
-    ->name('mustahik.import');
+// Laporan distribusi routes
+Route::middleware(['auth', 'verified'])->prefix('laporan')->name('laporan.')->group(function () {
+    Route::get('/', [LaporanDistribusiController::class, 'index'])->name('index');
+    Route::get('/create', [LaporanDistribusiController::class, 'create'])->name('create');
+    Route::post('/', [LaporanDistribusiController::class, 'store'])->name('store');
 });
 
 require __DIR__ . '/auth.php';
