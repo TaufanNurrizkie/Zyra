@@ -3,23 +3,38 @@ import AdminLayout from "@/Layouts/AdminLayout";
 import DashboardCards from "@/Components/DashboardCards";
 import ChartSection from "@/Components/ChartSection";
 import MustahikTable from "@/Components/MustahikTable";
-import DistributionProgress from "@/Components/DistributionProgress";
+import MapMustahik from "@/Components/mapMustahik";
+import SplitText from "@/Components/animasiText/SplitText";
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
-import SplitText from "@/Components/animasiText/SplitText";
-import MapMustahik from "@/Components/mapMustahik";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function AdminIndex() {
     const containerRef = useRef(null);
 
     useEffect(() => {
-        gsap.from(containerRef.current.children, {
-            y: 40,
-            opacity: 0,
-            duration: 1,
-            stagger: 0.2,
-            ease: "power3.out",
+        const sections = containerRef.current.querySelectorAll(".anim-section");
+
+        sections.forEach((section, index) => {
+            gsap.from(section, {
+                y: 50,
+                opacity: 0,
+                duration: 0.8,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: section,
+                    start: "top 80%", 
+                    toggleActions: "play none none none",
+                },
+                delay: index * 0.2, // biar muncul berurutan
+            });
         });
+
+        return () => {
+            ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+        };
     }, []);
 
     return (
@@ -28,7 +43,7 @@ export default function AdminIndex() {
 
             <div
                 ref={containerRef}
-                className="p-8 bg-gray-100 min-h-screen space-y-8"
+                className="p-8 bg-gray-100 min-h-screen space-y-12 dashboard-container"
             >
                 {/* Judul */}
                 <SplitText
@@ -45,21 +60,25 @@ export default function AdminIndex() {
                 />
 
                 {/* Cards Statistik */}
-                <DashboardCards />
+                <div className="anim-section">
+                    <DashboardCards />
+                </div>
 
-                
-                    {/* Chart Distribusi */}
+                {/* Chart Distribusi */}
+                <div className="anim-section">
                     <ChartSection />
+                </div>
 
-
+                {/* Peta Mustahik */}
+                <div className="anim-section">
                     <MapMustahik />
-                
+                </div>
 
                 {/* Tabel Mustahik */}
-                <MustahikTable />
+                <div className="anim-section">
+                    <MustahikTable />
+                </div>
             </div>
-
-            {/* Animasi masuk */}
         </AdminLayout>
     );
 }
