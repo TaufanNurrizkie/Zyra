@@ -11,7 +11,9 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function AdminIndex() {
+// ...import dll tetap sama
+
+export default function AdminIndex({ mustahik }) {   // ✅ terima props dari Inertia
     const containerRef = useRef(null);
 
     useEffect(() => {
@@ -45,7 +47,6 @@ export default function AdminIndex() {
                 ref={containerRef}
                 className="p-8 bg-gray-100 min-h-screen space-y-12 dashboard-container"
             >
-                {/* Judul */}
                 <SplitText
                     text="Dashboard Admin"
                     className="text-[50px] font-semibold text-center w-full"
@@ -59,26 +60,16 @@ export default function AdminIndex() {
                     rootMargin="-100px"
                 />
 
-                {/* Cards Statistik */}
-                <div className="anim-section">
-                    <DashboardCards />
-                </div>
+                <DashboardCards mustahik={mustahik}/>
+                <ChartSection />
 
-                {/* Chart Distribusi */}
-                <div className="anim-section">
-                    <ChartSection />
-                </div>
+                {/* ✅ lempar data mustahik ke MapMustahik */}
+                <MapMustahik mustahik={mustahik} />
 
-                {/* Peta Mustahik */}
-                <div className="anim-section">
-                    <MapMustahik />
-                </div>
+                <MustahikTable mustahik={mustahik} />
 
-                {/* Tabel Mustahik */}
-                <div className="anim-section">
-                    <MustahikTable />
-                </div>
             </div>
         </AdminLayout>
     );
 }
+

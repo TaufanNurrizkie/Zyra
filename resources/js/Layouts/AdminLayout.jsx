@@ -10,8 +10,6 @@ export default function AdminLayout({ children }) {
     }, []);
 
     useEffect(() => {
-
-
         const onEsc = (e) => {
             if (e.key === "Escape" && open) {
                 setOpen(false); // ESC untuk nutup
@@ -175,8 +173,8 @@ export default function AdminLayout({ children }) {
                                 ✨ Manajemen
                             </h3>
                             <div className="space-y-2">
-                                <button
-                                    onClick={() => handleNavClick("/dashboard")}
+                                <a
+                                    href="/admin"
                                     className={`group w-full flex items-center gap-4 px-4 py-3.5 rounded-2xl text-sm font-semibold text-white/90 hover:text-white backdrop-blur-sm bg-white/10 hover:bg-white/20 transition-all duration-300 hover:scale-105 active:scale-95 hover:translate-x-2 border border-white/20 hover:border-white/30 hover:shadow-lg ${
                                         open
                                             ? "opacity-100 translate-x-0"
@@ -203,14 +201,13 @@ export default function AdminLayout({ children }) {
                                         </svg>
                                     </div>
                                     <span className="flex-1 text-left">
-                                        Daftar Area
+                                        Dashboard
                                     </span>
                                     <div className="w-2 h-2 bg-white/50 rounded-full group-hover:bg-white group-hover:scale-150 transition-all duration-300"></div>
-                                </button>
-                                <button
-                                    onClick={() =>
-                                        handleNavClick("/mustahik/data")
-                                    }
+                                </a>
+
+                                <a
+                                    href="/mustahik"
                                     className={`group w-full flex items-center gap-4 px-4 py-3.5 rounded-2xl text-sm font-semibold text-white/90 hover:text-white backdrop-blur-sm bg-white/10 hover:bg-white/20 transition-all duration-300 hover:scale-105 active:scale-95 hover:translate-x-2 border border-white/20 hover:border-white/30 hover:shadow-lg ${
                                         open
                                             ? "opacity-100 translate-x-0"
@@ -240,7 +237,7 @@ export default function AdminLayout({ children }) {
                                         Data Mustahik
                                     </span>
                                     <div className="w-2 h-2 bg-white/50 rounded-full group-hover:bg-white group-hover:scale-150 transition-all duration-300"></div>
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -319,7 +316,7 @@ export default function AdminLayout({ children }) {
                 {children}
             </main>
 
-                            {/* FOOTER */}
+            {/* FOOTER */}
             <footer
                 className={`backdrop-blur-xl bg-white/70 border-t border-white/20 shadow-md p-4 text-center text-sm text-gray-600 transition-all duration-500 ${
                     open ? "ml-80" : "ml-0"
@@ -355,7 +352,6 @@ export default function AdminLayout({ children }) {
                     </div>
                 </div>
             </footer>
-
         </div>
     );
 }

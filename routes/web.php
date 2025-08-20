@@ -1,11 +1,18 @@
 <?php
 
+use Inertia\Inertia;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Application;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MustahikController;
+
 use App\Http\Controllers\LaporanDistribusiController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+
 
 Route::get('/', function () {
     return Inertia::render('Dashboard', [
@@ -16,15 +23,15 @@ Route::get('/', function () {
     ]);
 });
 
+
+Route::get('/admin', [AdminController::class, 'index'])->middleware(['auth', 'verified'])->name('admin');
+
 // Dashboard
 Route::get('/dashboard', fn () => Inertia::render('Dashboard'))
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
-// Admin dashboard
-Route::get('/admin', fn () => Inertia::render('admin/index'))
-    ->middleware(['auth', 'verified'])
-    ->name('admin');
+
 
 // User pages
 Route::get('/informasi', fn () => Inertia::render('user/informasi/index'))
@@ -60,5 +67,13 @@ Route::middleware(['auth', 'verified'])->prefix('laporan')->name('laporan.')->gr
     Route::get('/create', [LaporanDistribusiController::class, 'create'])->name('create');
     Route::post('/', [LaporanDistribusiController::class, 'store'])->name('store');
 });
+
+// routes/web.php
+Route::middleware(['auth'])->group(function () {
+    Route::get('/admin/gallery', [GalleryController::class, 'index'])->name('admin.gallery.index');
+    Route::post('/admin/gallery', [GalleryController::class, 'store'])->name('admin.gallery.store');
+    Route::delete('/admin/gallery/{id}', [GalleryController::class, 'destroy'])->name('admin.gallery.destroy');
+});
+
 
 require __DIR__ . '/auth.php';
