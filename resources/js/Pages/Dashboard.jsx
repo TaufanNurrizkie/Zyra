@@ -6,9 +6,7 @@ export default function Dashboard() {
     return (
 
         <UserLayout>
-            <h1 className="text-2xl font-bold">Halo dari Dashboard Mustahik!</h1>
+            <h1 className="text-2xl font-bold mb-80">Halo dari Dashboard Mustahik!</h1>
         </UserLayout>
-
-
     );
 }
