@@ -1,10 +1,10 @@
 <?php
 
 use Inertia\Inertia;
+use App\Http\Controllers\GalleryController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MustahikController;
 use App\Http\Controllers\LaporanDistribusiController;
@@ -18,15 +18,14 @@ Route::get('/', function () {
     ]);
 });
 
-
-Route::get('/admin', [AdminController::class, 'index'])->middleware(['auth', 'verified'])->name('admin');
+Route::get('/admin', [AdminController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('admin');
 
 // Dashboard
 Route::get('/dashboard', fn() => Inertia::render('Dashboard'))
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
-
-
 
 // User pages
 Route::get('/informasi', fn() => Inertia::render('user/informasi/index'))
@@ -62,17 +61,15 @@ Route::middleware(['auth', 'verified'])->prefix('laporan')->name('laporan.')->gr
     Route::get('/create', [LaporanDistribusiController::class, 'create'])->name('create');
     Route::post('/', [LaporanDistribusiController::class, 'store'])->name('store');
     Route::get('/{id}/edit', [LaporanDistribusiController::class, 'edit'])->name('edit');
-    Route::put('/{id}', [LaporanDistribusiController::class, 'update'])->name('update'); // ✅ Tambah update
-    Route::delete('/{id}', [LaporanDistribusiController::class, 'destroy'])->name('destroy'); // ✅ Tambah delete
+    Route::put('/{id}', [LaporanDistribusiController::class, 'update'])->name('update');
+    Route::delete('/{id}', [LaporanDistribusiController::class, 'destroy'])->name('destroy');
 });
 
-
-// routes/web.php
+// Gallery routes
 Route::middleware(['auth'])->group(function () {
     Route::get('/admin/gallery', [GalleryController::class, 'index'])->name('admin.gallery.index');
     Route::post('/admin/gallery', [GalleryController::class, 'store'])->name('admin.gallery.store');
     Route::delete('/admin/gallery/{id}', [GalleryController::class, 'destroy'])->name('admin.gallery.destroy');
 });
-
 
 require __DIR__ . '/auth.php';
