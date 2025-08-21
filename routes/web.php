@@ -1,17 +1,14 @@
 <?php
 
 use Inertia\Inertia;
+use App\Http\Controllers\GalleryController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MustahikController;
-
 use App\Http\Controllers\LaporanDistribusiController;
-use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
+
 
 
 Route::get('/', function () {

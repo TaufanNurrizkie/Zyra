@@ -103,7 +103,7 @@ export default function AdminLayout({ children }) {
                 <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-white/5 to-transparent pointer-events-none"></div>
 
                 {/* Header */}
-                <div className="relative p-6 border-b border-white/20">
+                <div className="relative p-6 border-b border-white/20 " >
                     {/* Close Button */}
                     <div className="flex items-center justify-between mb-6">
                         <button
@@ -166,6 +166,7 @@ export default function AdminLayout({ children }) {
                             <h3
                                 className={`text-xs font-bold text-white/70 uppercase tracking-widest mb-4 px-3 transition-all duration-500 delay-100 ${
                                     open
+                                        
                                         ? "opacity-100 translate-x-0"
                                         : "opacity-0 -translate-x-4"
                                 }`}
