@@ -1,8 +1,9 @@
 import React, { useRef, useState } from "react";
 import AdminLayout from "@/Layouts/AdminLayout";
 import { Link, useForm, router } from "@inertiajs/react";
+import MapMustahik from "@/Components/MapMustahik";
 
-export default function Index({ mustahik = [] }) {
+export default function Index({ mustahik = [], }) {
   const fileInputRef = useRef(null);
   const { delete: destroy } = useForm();
 
@@ -104,6 +105,7 @@ export default function Index({ mustahik = [] }) {
     }
 
     return (
+
       <div className="flex flex-col md:flex-row justify-center md:items-center mt-6 space-y-3 md:space-y-0">
         <div className="flex items-center justify-center">
           {pages}
@@ -121,7 +123,9 @@ export default function Index({ mustahik = [] }) {
   };
 
   return (
-    
+    <AdminLayout>
+      <MapMustahik mustahik={mustahik} />
+
       <div className="p-4 bg-gray-50 min-h-screen">
         {/* Header Container */}
         <div className="bg-white shadow-sm rounded-lg p-6 mb-6">
@@ -346,6 +350,6 @@ export default function Index({ mustahik = [] }) {
           )}
         </div>
       </div>
-    
+    </AdminLayout>
   );
 }

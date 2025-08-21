@@ -137,6 +137,7 @@ export default function Navbar() {
         }
     }, [])
 
+
     return (
         <nav
             ref={navRef}

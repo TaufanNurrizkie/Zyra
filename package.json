@@ -8,7 +8,7 @@
     },
     "devDependencies": {
         "@headlessui/react": "^2.0.0",
-        "@inertiajs/react": "^2.0.0",
+        "@inertiajs/react": "^2.1.2",
         "@tailwindcss/forms": "^0.5.3",
         "@tailwindcss/vite": "^4.0.0",
         "@vitejs/plugin-react": "^4.2.0",
@@ -23,17 +23,25 @@
         "vite": "^7.0.4"
     },
     "dependencies": {
+
         "@radix-ui/react-accordion": "^1.2.12",
         "@radix-ui/react-dialog": "^1.1.15",
         "@radix-ui/react-slot": "^1.2.3",
         "@radix-ui/react-tabs": "^1.1.13",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
+        "@inertiajs/inertia": "^0.11.1",
+        "framer-motion": "^12.23.12",
         "gsap": "^3.13.0",
+        "leaflet": "^1.9.4",
         "lucide-react": "^0.539.0",
         "recharts": "^3.1.2",
         "split-type": "^0.3.4",
         "tailwind-merge": "^3.3.1",
         "tailwindcss-animate": "^1.0.7"
+        "ogl": "^1.0.11",
+        "react-leaflet": "^4.2.1",
+        "recharts": "^3.1.2",
+        "sweetalert2": "^11.22.4"
     }
 }
