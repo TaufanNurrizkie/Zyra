@@ -9,6 +9,9 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MustahikController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\LaporanDistribusiController;
+use App\Http\Controllers\ZakatController;
+use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\TanyaiAiController;
 
 Route::get('/', function () {
     return Inertia::render('Dashboard', [
@@ -80,5 +83,15 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/admin/gallery', [GalleryController::class, 'store'])->name('admin.gallery.store');
     Route::delete('/admin/gallery/{id}', [GalleryController::class, 'destroy'])->name('admin.gallery.destroy');
 });
+
+
+// Zakat user routes
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/zakat', [ZakatController::class, 'index'])->name('zakat.index');
+    Route::post('/zakat', [ZakatController::class, 'store'])->name('zakat.store');
+});
+
+// Tanyai Ai
+Route::middleware(['auth'])->post('/tanya-ai', [TanyaiAiController::class, 'ask'])->name('tanya.ai');
 
 require __DIR__ . '/auth.php';

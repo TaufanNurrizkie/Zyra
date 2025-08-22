@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\LaporanDistribusi;
+use App\Models\Zakat;
 
 class LaporanDistribusiController extends Controller
 {
@@ -12,8 +13,20 @@ class LaporanDistribusiController extends Controller
     {
         $laporanDistribusi = LaporanDistribusi::latest()->get();
 
-        return inertia('admin/laporan/Index', [
-            'laporanDistribusi' => $laporanDistribusi
+        // hitung total dana masuk dari tabel zakat
+        $danaMasuk = Zakat::sum('total');
+
+        // hitung total dana keluar dari tabel laporan_distribusi
+        $danaKeluar = LaporanDistribusi::sum('dana_keluar');
+
+        // hitung sisa dana
+        $sisaDana = $danaMasuk - $danaKeluar;
+
+        return Inertia::render('admin/laporan/Index', [
+            'laporanDistribusi' => $laporanDistribusi,
+            'danaMasuk' => $danaMasuk,
+            'danaKeluar' => $danaKeluar,
+            'sisaDana' => $sisaDana,
         ]);
     }
 
