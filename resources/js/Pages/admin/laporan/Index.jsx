@@ -2,7 +2,7 @@ import { Link, router } from "@inertiajs/react";
 import { useState } from "react";
 import AdminLayout from "@/Layouts/AdminLayout";
 
-export default function Index({ laporanDistribusi = [] }) {
+export default function Index({ laporanDistribusi, danaMasuk, danaKeluar, sisaDana = [] }) {
     const [searchTerm, setSearchTerm] = useState("");
     const [sortBy, setSortBy] = useState("tanggal");
     const [sortOrder, setSortOrder] = useState("desc");
@@ -43,23 +43,11 @@ export default function Index({ laporanDistribusi = [] }) {
             }
         });
 
-    // Calculate total dana keluar
-    // dummy dana masuk
-    const dummyDanaMasuk = 1000000;
-
     // hitung total dana keluar dari laporanDistribusi
     const totalDanaKeluar = laporanDistribusi.reduce(
         (sum, item) => sum + parseInt(item.dana_keluar || 0),
         0
     );
-
-    // total sisa dana
-    const totalDana = dummyDanaMasuk - totalDanaKeluar;
-
-    console.log("Dana Masuk (Dummy):", dummyDanaMasuk);
-    console.log("Total Dana Keluar:", totalDanaKeluar);
-    console.log("Sisa Dana:", totalDana);
-
 
     const SortIcon = ({ column }) => {
         if (sortBy !== column) {
@@ -128,10 +116,9 @@ export default function Index({ laporanDistribusi = [] }) {
                                     </div>
                                     <div className="ml-4">
                                         <h3 className="text-sm font-medium text-gray-500">Total Dana</h3>
-                                        <p>Dana Masuk: Rp {dummyDanaMasuk.toLocaleString()}</p>
-                                        <p>Dana Keluar: Rp {totalDanaKeluar.toLocaleString()}</p>
-                                        <p>Sisa Dana: Rp {totalDana.toLocaleString()}</p>
-
+                                        <p>Dana Masuk: Rp {danaMasuk.toLocaleString()}</p>
+                                        <p>Dana Keluar: Rp {danaKeluar.toLocaleString()}</p>
+                                        <p>Sisa Dana: Rp {sisaDana.toLocaleString()}</p>
                                     </div>
                                 </div>
                             </div>
