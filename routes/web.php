@@ -5,18 +5,23 @@ use App\Http\Controllers\GalleryController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\LandingPage;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MustahikController;
 use App\Http\Controllers\LaporanDistribusiController;
 
-Route::get('/', function () {
-    return Inertia::render('Dashboard', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
+    Route::get('/', [LandingPage::class, 'index']);
+
+
+    // Route::get('/', function () {
+    //     return Inertia::render('Dashboard', [
+    //         'canLogin' => Route::has('login'),
+    //         'canRegister' => Route::has('register'),
+    //         'laravelVersion' => Application::VERSION,
+    //         'phpVersion' => PHP_VERSION,
+    //     ]);
+    // });
+
 
 Route::get('/admin', [AdminController::class, 'index'])
     ->middleware(['auth', 'verified'])
