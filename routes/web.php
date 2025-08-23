@@ -10,7 +10,6 @@ use App\Http\Controllers\MustahikController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\LaporanDistribusiController;
 use App\Http\Controllers\ZakatController;
-use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\TanyaiAiController;
 
 Route::get('/', function () {

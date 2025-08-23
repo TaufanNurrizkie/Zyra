@@ -6,6 +6,7 @@ import InformationSection from "@/Pages/user/InformationSection.jsx";
 import ProgramSection from "@/Pages/user/ProgramSection.jsx";
 import NewsSection from "@/Pages/user/NewSection.jsx";
 import GallerySection from "@/Pages/user/GalerySection.jsx";
+import ChatWidget from "@/Pages/user/ChatWidget.jsx";
 
 export default function UserLayout() {
     return (
@@ -18,6 +19,8 @@ export default function UserLayout() {
             <NewsSection />
             <GallerySection />
             <Footer />
+
+            <ChatWidget />
         </div>
     );
 }
