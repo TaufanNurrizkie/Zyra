@@ -1,16 +1,17 @@
 <?php
 
 use Inertia\Inertia;
+use App\Http\Controllers\LandingPage;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\LandingPage;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\MustahikController;
-use App\Http\Controllers\LaporanDistribusiController;
-use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\ZakatController;
+use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProgramController;
+use App\Http\Controllers\MustahikController;
 use App\Http\Controllers\TanyaiAiController;
+use App\Http\Controllers\LaporanDistribusiController;
 
     Route::get('/', [LandingPage::class, 'index']);
 
@@ -86,7 +87,7 @@ Route::middleware(['auth'])->group(function () {
 
 // Zakat user routes
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/zakat', [ZakatController::class, 'index'])->name('zakat.index');
+    Route::get('/zakat', [ZakatController::class, 'index'])->name('zakat');
     Route::post('/zakat', [ZakatController::class, 'store'])->name('zakat.store');
 });
 
