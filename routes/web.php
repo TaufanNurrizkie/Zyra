@@ -1,14 +1,17 @@
 <?php
 
 use Inertia\Inertia;
-use App\Http\Controllers\GalleryController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LandingPage;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MustahikController;
+use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\LaporanDistribusiController;
+use App\Http\Controllers\ZakatController;
+use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\TanyaiAiController;
 
     Route::get('/', [LandingPage::class, 'index']);
 
@@ -70,11 +73,29 @@ Route::middleware(['auth', 'verified'])->prefix('laporan')->name('laporan.')->gr
     Route::delete('/{id}', [LaporanDistribusiController::class, 'destroy'])->name('destroy');
 });
 
+
+
+Route::middleware(['auth'])->group(function () {
+    Route::resource('programs', ProgramController::class);
+});
+
+
+
 // Gallery routes
 Route::middleware(['auth'])->group(function () {
     Route::get('/admin/gallery', [GalleryController::class, 'index'])->name('admin.gallery.index');
     Route::post('/admin/gallery', [GalleryController::class, 'store'])->name('admin.gallery.store');
     Route::delete('/admin/gallery/{id}', [GalleryController::class, 'destroy'])->name('admin.gallery.destroy');
 });
+
+
+// Zakat user routes
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/zakat', [ZakatController::class, 'index'])->name('zakat.index');
+    Route::post('/zakat', [ZakatController::class, 'store'])->name('zakat.store');
+});
+
+// Tanyai Ai
+Route::middleware(['auth'])->post('/tanya-ai', [TanyaiAiController::class, 'ask'])->name('tanya.ai');
 
 require __DIR__ . '/auth.php';

@@ -103,7 +103,7 @@ export default function AdminLayout({ children }) {
                 <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-white/5 to-transparent pointer-events-none"></div>
 
                 {/* Header */}
-                <div className="relative p-6 border-b border-white/20 " >
+                <div className="relative p-6 border-b border-white/20 ">
                     {/* Close Button */}
                     <div className="flex items-center justify-between mb-6">
                         <button
@@ -166,7 +166,6 @@ export default function AdminLayout({ children }) {
                             <h3
                                 className={`text-xs font-bold text-white/70 uppercase tracking-widest mb-4 px-3 transition-all duration-500 delay-100 ${
                                     open
-                                        
                                         ? "opacity-100 translate-x-0"
                                         : "opacity-0 -translate-x-4"
                                 }`}
@@ -236,6 +235,108 @@ export default function AdminLayout({ children }) {
                                     </div>
                                     <span className="flex-1 text-left">
                                         Data Mustahik
+                                    </span>
+                                    <div className="w-2 h-2 bg-white/50 rounded-full group-hover:bg-white group-hover:scale-150 transition-all duration-300"></div>
+                                </a>
+
+                                <a
+                                    href="/admin/gallery"
+                                    className={`group w-full flex items-center gap-4 px-4 py-3.5 rounded-2xl text-sm font-semibold text-white/90 hover:text-white backdrop-blur-sm bg-white/10 hover:bg-white/20 transition-all duration-300 hover:scale-105 active:scale-95 hover:translate-x-2 border border-white/20 hover:border-white/30 hover:shadow-lg ${
+                                        open
+                                            ? "opacity-100 translate-x-0"
+                                            : "opacity-0 -translate-x-4"
+                                    }`}
+                                    style={{
+                                        transitionDelay: open ? "300ms" : "0ms",
+                                    }}
+                                >
+                                    <div className="p-2 bg-gradient-to-br from-pink-400 to-pink-600 rounded-lg shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-110">
+                                        {/* Gallery Icon */}
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            className="h-4 w-4"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke="currentColor"
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                strokeWidth={2}
+                                                d="M4 16l4-4 4 4 4-4 4 4"
+                                            />
+                                        </svg>
+                                    </div>
+                                    <span className="flex-1 text-left">
+                                        Gallery
+                                    </span>
+                                    <div className="w-2 h-2 bg-white/50 rounded-full group-hover:bg-white group-hover:scale-150 transition-all duration-300"></div>
+                                </a>
+
+                                <a
+                                    href="/programs"
+                                    className={`group w-full flex items-center gap-4 px-4 py-3.5 rounded-2xl text-sm font-semibold text-white/90 hover:text-white backdrop-blur-sm bg-white/10 hover:bg-white/20 transition-all duration-300 hover:scale-105 active:scale-95 hover:translate-x-2 border border-white/20 hover:border-white/30 hover:shadow-lg ${
+                                        open
+                                            ? "opacity-100 translate-x-0"
+                                            : "opacity-0 -translate-x-4"
+                                    }`}
+                                    style={{
+                                        transitionDelay: open ? "300ms" : "0ms",
+                                    }}
+                                >
+                                    <div className="p-2 bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-110">
+                                        {/* Program Icon */}
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            className="h-4 w-4"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke="currentColor"
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                strokeWidth={2}
+                                                d="M9 12h6m-6 4h6M7 8h10M5 6h14a2 2 0 012 2v12a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2z"
+                                            />
+                                        </svg>
+                                    </div>
+                                    <span className="flex-1 text-left">
+                                        Program
+                                    </span>
+                                    <div className="w-2 h-2 bg-white/50 rounded-full group-hover:bg-white group-hover:scale-150 transition-all duration-300"></div>
+                                </a>
+
+                                <a
+                                    href="/laporan"
+                                    className={`group w-full flex items-center gap-4 px-4 py-3.5 rounded-2xl text-sm font-semibold text-white/90 hover:text-white backdrop-blur-sm bg-white/10 hover:bg-white/20 transition-all duration-300 hover:scale-105 active:scale-95 hover:translate-x-2 border border-white/20 hover:border-white/30 hover:shadow-lg ${
+                                        open
+                                            ? "opacity-100 translate-x-0"
+                                            : "opacity-0 -translate-x-4"
+                                    }`}
+                                    style={{
+                                        transitionDelay: open ? "300ms" : "0ms",
+                                    }}
+                                >
+                                    <div className="p-2 bg-gradient-to-br from-green-400 to-green-600 rounded-lg shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-110">
+                                        {/* Report Icon */}
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            className="h-4 w-4"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke="currentColor"
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                strokeWidth={2}
+                                                d="M9 17v-6h6v6M5 21h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2z"
+                                            />
+                                        </svg>
+                                    </div>
+                                    <span className="flex-1 text-left">
+                                        Laporan
                                     </span>
                                     <div className="w-2 h-2 bg-white/50 rounded-full group-hover:bg-white group-hover:scale-150 transition-all duration-300"></div>
                                 </a>
