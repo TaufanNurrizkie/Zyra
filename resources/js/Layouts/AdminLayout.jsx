@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { router } from "@inertiajs/react";
 
 export default function AdminLayout({ children }) {
     const [open, setOpen] = useState(true);
@@ -23,10 +24,12 @@ export default function AdminLayout({ children }) {
             document.body.classList.remove("overflow-hidden"); // jaga-jaga
         };
     }, [open]);
-
     const handleNavClick = (href) => {
-        setOpen(true);
-        console.log(`Navigating to: ${href}`);
+        if (href === "/logout") {
+            router.post("/logout"); // Breeze logout pakai POST
+        } else {
+            router.visit(href); // Navigasi biasa
+        }
     };
 
     return (
@@ -377,12 +380,16 @@ export default function AdminLayout({ children }) {
                     </div>
 
                     <button
+                        type="button"
                         onClick={() => handleNavClick("/logout")}
-                        className={`group w-full bg-gradient-to-r from-red-500 via-red-600 to-red-700 hover:from-red-600 hover:via-red-700 hover:to-red-800 text-white font-semibold py-3.5 px-4 rounded-2xl flex items-center justify-center gap-3 transition-all duration-300 hover:shadow-xl hover:scale-105 active:scale-95 border border-red-400/30 ${
-                            open
-                                ? "opacity-100 translate-x-0"
-                                : "opacity-0 -translate-x-4"
-                        }`}
+                        className={`group w-full bg-gradient-to-r from-red-500 via-red-600 to-red-700 
+        hover:from-red-600 hover:via-red-700 hover:to-red-800 
+        text-white font-semibold py-3.5 px-4 rounded-2xl 
+        flex items-center justify-center gap-3 transition-all duration-300 
+        hover:shadow-xl hover:scale-105 active:scale-95 
+        border border-red-400/30 ${
+            open ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4"
+        }`}
                         style={{ transitionDelay: open ? "500ms" : "0ms" }}
                     >
                         <svg
