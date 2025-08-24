@@ -3,9 +3,7 @@ import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import {
   Calendar,
-  Clock,
   User,
-  Eye,
   Share2,
   Search,
   Filter,
@@ -35,8 +33,6 @@ export default function NewsPage() {
     image: "/young-muslims-discussing-zakat.png",
     author: "Dr. Ahmad Syafii",
     date: "15 Januari 2024",
-    readTime: "5 menit",
-    views: "2.1k",
     featured: true,
   }
 
@@ -49,8 +45,6 @@ export default function NewsPage() {
       image: "/ramadan-iftar-preparation.png",
       author: "Siti Nurhaliza",
       date: "12 Januari 2024",
-      readTime: "3 menit",
-      views: "1.8k",
     },
     {
       id: 3,
@@ -60,8 +54,6 @@ export default function NewsPage() {
       image: "/islamic-finance-empowerment.png",
       author: "Prof. Bambang Sudibyo",
       date: "10 Januari 2024",
-      readTime: "4 menit",
-      views: "1.5k",
     },
     {
       id: 7,
@@ -71,8 +63,6 @@ export default function NewsPage() {
       image: "/corporate-zakat-indonesia.png",
       author: "Ahmad Fauzi, S.H.",
       date: "1 Januari 2024",
-      readTime: "4 menit",
-      views: "1.6k",
     },
   ]
 
@@ -215,10 +205,6 @@ export default function NewsPage() {
                       <Calendar className="w-4 h-4" />
                       <span>{featuredNews.date}</span>
                     </div>
-                    <div className="flex items-center space-x-1">
-                      <Clock className="w-4 h-4" />
-                      <span>{featuredNews.readTime}</span>
-                    </div>
                   </div>
                 </div>
                 <h2 className="text-3xl font-bold text-gray-800 mb-4 group-hover:text-green-700 transition-colors">
@@ -232,12 +218,6 @@ export default function NewsPage() {
                     </div>
                     <div>
                       <p className="font-semibold text-gray-800">{featuredNews.author}</p>
-                      <div className="flex items-center space-x-3 text-sm text-gray-500">
-                        <div className="flex items-center space-x-1">
-                          <Eye className="w-4 h-4" />
-                          <span>{featuredNews.views}</span>
-                        </div>
-                      </div>
                     </div>
                   </div>
                   <Button className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white rounded-full">
@@ -283,14 +263,6 @@ export default function NewsPage() {
                         <Calendar className="w-3 h-3" />
                         <span>{article.date}</span>
                       </div>
-                      <div className="flex items-center space-x-1">
-                        <Clock className="w-3 h-3" />
-                        <span>{article.readTime}</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center space-x-1">
-                      <Eye className="w-3 h-3" />
-                      <span>{article.views}</span>
                     </div>
                   </div>
                   <div className="flex items-center justify-between">

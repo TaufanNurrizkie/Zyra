@@ -8,16 +8,21 @@ import NewsSection from "@/Pages/user/NewSection.jsx";
 import GallerySection from "@/Pages/user/GalerySection.jsx"; // pastikan typo: Gallery, bukan Galery
 import FAQSection from "@/Pages/user/FaqSection.jsx";
 
-export default function UserLayout({ children, gallery }) {
+export default function UserLayout({  children, mustahik, program, gallery, dana  }) {
     return (
         <div>
             <Navbar />
-            <HeroSection />
+             <HeroSection
+                mustahik={mustahik}
+                // donatur={donatur}
+                program={program}
+                dana={dana}
+            />
             <AboutSection />
             <InformationSection />
-            <ProgramSection />
+            <ProgramSection programs={program} />
             <NewsSection />
-            <GallerySection gallery={gallery} /> {/* kirim data ke sini */}
+            <GallerySection gallery={gallery} />
             <FAQSection />
             <Footer />
             {children}

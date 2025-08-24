@@ -4,6 +4,8 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BeritaController;
+use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\LandingPage;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MustahikController;
@@ -12,17 +14,17 @@ use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\ZakatController;
 use App\Http\Controllers\TanyaiAiController;
 
-    Route::get('/', [LandingPage::class, 'index']);
+Route::get('/', [LandingPage::class, 'index']);
 
 
-    // Route::get('/', function () {
-    //     return Inertia::render('Dashboard', [
-    //         'canLogin' => Route::has('login'),
-    //         'canRegister' => Route::has('register'),
-    //         'laravelVersion' => Application::VERSION,
-    //         'phpVersion' => PHP_VERSION,
-    //     ]);
-    // });
+// Route::get('/', function () {
+//     return Inertia::render('Dashboard', [
+//         'canLogin' => Route::has('login'),
+//         'canRegister' => Route::has('register'),
+//         'laravelVersion' => Application::VERSION,
+//         'phpVersion' => PHP_VERSION,
+//     ]);
+// });
 
 
 Route::get('/admin', [AdminController::class, 'index'])
@@ -74,6 +76,13 @@ Route::middleware(['auth', 'verified'])->prefix('laporan')->name('laporan.')->gr
 
 Route::middleware(['auth'])->group(function () {
     Route::resource('programs', ProgramController::class);
+    Route::get('berita', [BeritaController::class, 'index'])->name('berita.index');
+    Route::get('berita/create', [BeritaController::class, 'create'])->name('berita.create');
+    Route::post('berita', [BeritaController::class, 'store'])->name('berita.store');
+    Route::get('berita/{berita}', [BeritaController::class, 'show'])->name('berita.show');
+    Route::get('berita/{berita}/edit', [BeritaController::class, 'edit'])->name('berita.edit');
+    Route::post('berita/{berita}', [BeritaController::class, 'update'])->name('berita.update');
+    Route::delete('berita/{berita}', [BeritaController::class, 'destroy'])->name('berita.destroy');
 });
 
 // Gallery routes

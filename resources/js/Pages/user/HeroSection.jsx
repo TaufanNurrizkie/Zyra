@@ -16,7 +16,7 @@ import {
     Share2
 } from "lucide-react"
 
-export default function HeroSection() {
+export default function HeroSection({ mustahik, program, dana }) {
     const heroRef = useRef(null)
     const titleRef = useRef(null)
     const subtitleRef = useRef(null)
@@ -43,18 +43,11 @@ export default function HeroSection() {
         { text: "Bersama", gradient: "from-green-500 via-emerald-500 to-teal-500" }
     ]
 
-    const [animatedStats, setAnimatedStats] = useState({
-        mustahik: 0,
-        donatur: 0,
-        program: 0,
-        dana: 0,
-    })
-
-    const stats = [
+    // Data statistik yang menggunakan props
+    const statsData = [
         {
             icon: Users,
-            value: "1.2M+",
-            animatedValue: "mustahik",
+            value: mustahik || 0,
             label: "Mustahik Terbantu",
             color: "text-emerald-500",
             bgColor: "bg-emerald-500/10",
@@ -63,8 +56,7 @@ export default function HeroSection() {
         },
         {
             icon: Heart,
-            value: "500K+",
-            animatedValue: "donatur",
+            value: 50, // Donatur tetap menggunakan nilai default
             label: "Donatur Aktif",
             color: "text-amber-500",
             bgColor: "bg-amber-500/10",
@@ -73,8 +65,7 @@ export default function HeroSection() {
         },
         {
             icon: Award,
-            value: "50+",
-            animatedValue: "program",
+            value: program || 0,
             label: "Program Aktif",
             color: "text-amber-600",
             bgColor: "bg-amber-600/10",
@@ -83,8 +74,7 @@ export default function HeroSection() {
         },
         {
             icon: TrendingUp,
-            value: "25M+",
-            animatedValue: "dana",
+            value: dana || 0,
             label: "Dana Tersalurkan",
             color: "text-green-700",
             bgColor: "bg-teal-700/10",
@@ -92,6 +82,13 @@ export default function HeroSection() {
             description: "Rupiah yang telah disalurkan"
         },
     ]
+
+    const [animatedStats, setAnimatedStats] = useState({
+        mustahik: 0,
+        donatur: 0,
+        program: 0,
+        dana: 0,
+    })
 
     const features = [
         {
@@ -222,7 +219,7 @@ export default function HeroSection() {
             }
         })
 
-        // Animate stats counter
+        // Animate stats counter - menggunakan data dari props
         setTimeout(() => {
             let progress = 0
             const duration = 2500
@@ -234,10 +231,10 @@ export default function HeroSection() {
                 const easeProgress = 1 - Math.pow(1 - progress, 3)
 
                 setAnimatedStats({
-                    mustahik: Math.floor(easeProgress * 1200000),
-                    donatur: Math.floor(easeProgress * 500000),
-                    program: Math.floor(easeProgress * 50),
-                    dana: Math.floor(easeProgress * 25000000),
+                    mustahik: Math.floor(easeProgress * (mustahik || 1200000)),
+                    donatur: Math.floor(easeProgress * 500000), // Nilai default
+                    program: Math.floor(easeProgress * (program || 50)),
+                    dana: Math.floor(easeProgress * (dana || 25000000)),
                 })
 
                 if (progress < 1) {
@@ -253,12 +250,18 @@ export default function HeroSection() {
         return () => {
             document.removeEventListener("mousemove", handleMouseMove)
         }
-    }, [handleMouseMove])
+    }, [handleMouseMove, mustahik, program, dana])
 
     const formatNumber = (num) => {
-        if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M+'
-        if (num >= 1000) return (num / 1000).toFixed(0) + 'K+'
+        if (num >= 1000000000) return (num / 1000000000).toFixed(1) + 'M+'
+        if (num >= 1000000) return (num / 1000000).toFixed(1) + 'Jt+'
+        if (num >= 1000) return (num / 1000).toFixed(0) + 'Rb+'
         return num.toString()
+    }
+
+    // Fungsi untuk menangani interaksi (jika diperlukan)
+    const handleInteraction = (type) => {
+        // Implementasi jika diperlukan
     }
 
     return (
@@ -278,8 +281,6 @@ export default function HeroSection() {
                 <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-gradient-to-br from-amber-100 via-yellow-200 to-orange-200 rounded-full blur-2xl opacity-20 transform -translate-x-1/2 -translate-y-1/2 animate-pulse delay-1500"></div>
                 <div className="absolute bottom-10 right-10 w-24 h-24 bg-gradient-to-br from-orange-300 via-amber-300 to-yellow-300 rounded-full blur-lg opacity-30 animate-pulse delay-3000"></div>
             </div>
-
-
 
             <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-16 md:py-20">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center">
@@ -422,9 +423,11 @@ export default function HeroSection() {
                     </div>
 
                     <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-                        {stats.map((stat, index) => {
+                        {statsData.map((stat, index) => {
                             const IconComponent = stat.icon
                             const isActive = activeStatCard === index
+                            const animatedValue = animatedStats[Object.keys(animatedStats)[index]] || 0
+
                             return (
                                 <Card
                                     key={index}
@@ -438,17 +441,15 @@ export default function HeroSection() {
                                         transform: `perspective(1000px) rotateX(${mousePosition.y * 0.02 - 1}deg) rotateY(${mousePosition.x * 0.02 - 1}deg)`,
                                     }}
                                 >
-
-
                                     <div className="relative z-10">
                                         <div
-                                            className={`w-16 h-16 ${stat.bgColor} rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 group -hover:rotate-6 transition-all duration-300 shadow-lg group-hover:shadow-xl`}
+                                            className={`w-16 h-16 ${stat.bgColor} rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-lg group-hover:shadow-xl`}
                                         >
                                             <IconComponent className={`w-8 h-8 ${stat.color} group-hover:scale-110 transition-transform duration-300`} />
                                         </div>
 
                                         <div className="text-3xl font-bold text-gray-800 mb-2 group-hover:text-green-700 transition-colors duration-300">
-                                            {formatNumber(animatedStats[stat.animatedValue]) || stat.value}
+                                            {formatNumber(animatedValue)}
                                         </div>
 
                                         <div className="text-gray-600 text-sm font-semibold group-hover:text-gray-800 transition-colors duration-300 mb-2">
@@ -472,7 +473,6 @@ export default function HeroSection() {
                         })}
                     </div>
                 </div>
-
             </div>
         </section>
     )
