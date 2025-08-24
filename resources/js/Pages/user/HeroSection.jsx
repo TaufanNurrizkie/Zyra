@@ -336,7 +336,7 @@ export default function HeroSection() {
                         </div>
 
                         <div ref={buttonsRef} className="flex flex-col sm:flex-row gap-4 md:gap-6">
-                            <Button
+                            <a href="/zakat"
                                 size="md"
                                 className="relative bg-gradient-to-r from-green-600 via-green-400 to-green-500 hover:from-green-700 hover:via-green-600 hover:to-green-500 text-white font-bold px-10 py-8 h-auto text-xl shadow-xl hover:shadow-2xl transition-all duration-500 group overflow-hidden border-2 border-amber-500/30 hover:border-amber-400/50 hover:scale-105"
                                 onMouseEnter={() => handleInteraction('donate')}
@@ -345,9 +345,9 @@ export default function HeroSection() {
                                 <Heart className="mr-4 h-6 w-6 group-hover:animate-bounce group-hover:scale-110 transition-all duration-300" />
                                 <span className="relative z-10 group-hover:scale-105 transition-transform">Donasi Sekarang</span>
                                 <ArrowRight className="ml-4 h-5 w-5 group-hover:translate-x-2 group-hover:scale-110 transition-all duration-300" />
-                            </Button>
+                            </a>
 
-                            <Button
+                            <a href="#program"
                                 variant="outline"
                                 size="lg"
                                 className="border-2 border-amber-600 text-amber-700 hover:bg-amber-50 font-bold px-10 py-8 h-auto text-xl group transition-all duration-500 bg-white/70 backdrop-blur-lg hover:bg-white/90 hover:border-amber-700 hover:shadow-xl hover:scale-105"
@@ -355,7 +355,7 @@ export default function HeroSection() {
                             >
                                 <Play className="mr-4 h-5 w-5 group-hover:scale-125 group-hover:text-amber-600 transition-all duration-300" />
                                 <span className="group-hover:scale-105 transition-transform">Lihat Program</span>
-                            </Button>
+                            </a>
                         </div>
                     </div>
 
