@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { Users, HandHeart, Layers, UserCheck } from "lucide-react";
 
-export default function DashboardCards({ mustahik }) {
+export default function DashboardCards({ mustahik, relawanAktif, laporan }) {
   const cardsRef = useRef([]);
 
   useEffect(() => {
@@ -21,33 +21,33 @@ export default function DashboardCards({ mustahik }) {
   }, []);
 
   const stats = [
-    { 
-      title: "Total Mustahik", 
+    {
+      title: "Total Mustahik",
       value: mustahik.length,   // ✅ ambil langsung dari props
       icon: Users,
       color: "from-blue-500 to-blue-600",
       bgColor: "bg-blue-50",
       textColor: "text-blue-700"
     },
-    { 
-      title: "Bantuan Disalurkan", 
-      value: 85,   // ini sementara masih dummy
+    {
+      title: "Bantuan Disalurkan",
+      value: laporan.length,
       icon: HandHeart,
       color: "from-green-500 to-green-600",
       bgColor: "bg-green-50",
       textColor: "text-green-700"
     },
-    { 
-      title: "Kategori Asnaf", 
-      value: 8,    // bisa kamu hitung dari DB nanti
+    {
+      title: "Kategori Asnaf",
+      value: 8,
       icon: Layers,
       color: "from-purple-500 to-purple-600",
       bgColor: "bg-purple-50",
       textColor: "text-purple-700"
     },
-    { 
-      title: "Relawan Aktif", 
-      value: 15,   // ini juga bisa dibuat dinamis kalau ada tabel relawan
+    {
+      title: "Relawan Aktif",
+      value: relawanAktif,
       icon: UserCheck,
       color: "from-orange-500 to-orange-600",
       bgColor: "bg-orange-50",
@@ -66,11 +66,11 @@ export default function DashboardCards({ mustahik }) {
             className="relative bg-white shadow-lg rounded-3xl p-6 text-center transform hover:scale-105 hover:shadow-xl transition-all duration-300 cursor-pointer group overflow-hidden"
           >
             <div className={`absolute top-0 right-0 w-20 h-20 bg-gradient-to-br ${stat.color} rounded-full -translate-y-6 translate-x-6 opacity-10 group-hover:opacity-20 transition-opacity duration-300`}></div>
-            
+
             <div className={`inline-flex items-center justify-center w-16 h-16 ${stat.bgColor} rounded-2xl mb-4 group-hover:scale-110 transition-transform duration-300`}>
               <IconComponent className={`w-8 h-8 ${stat.textColor}`} />
             </div>
-            
+
             <div className="relative z-10">
               <h3 className="text-sm font-medium text-gray-600 mb-2 group-hover:text-gray-700 transition-colors duration-300">
                 {stat.title}
