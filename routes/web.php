@@ -7,7 +7,6 @@ use Illuminate\Foundation\Application;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\GalleryController;
-use App\Http\Controllers\LandingPage;
 use App\Http\Controllers\ZakatController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProgramController;

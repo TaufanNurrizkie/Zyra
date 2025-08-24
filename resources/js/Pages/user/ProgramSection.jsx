@@ -9,6 +9,11 @@ import {
   Sparkles,
   Target,
   BookOpen,
+  Heart,
+  Users,
+  Building,
+  School,
+  Utensils,
 } from "lucide-react"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
@@ -17,7 +22,9 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger)
 }
 
-export default function ProgramSection() {
+export default function ProgramSection({ programData }) {
+     console.log("Program Data:", programData);
+
   const programRef = useRef(null)
   const heroRef = useRef(null)
   const featuredRef = useRef(null)
@@ -34,7 +41,74 @@ export default function ProgramSection() {
     partners: 0,
   })
 
-  const featuredPrograms = [
+  // Fungsi untuk memetakan jenis program ke ikon dan warna
+  const mapProgramTypeToStyle = (jenis) => {
+    const styleMap = {
+      'Pendidikan': {
+        icon: GraduationCap,
+        color: "from-orange-500 to-amber-500",
+        bgColor: "bg-orange-50",
+        hoverColor: "hover:bg-orange-100",
+      },
+      'Kesehatan': {
+        icon: Stethoscope,
+        color: "from-green-500 to-emerald-500",
+        bgColor: "bg-green-50",
+        hoverColor: "hover:bg-green-100",
+      },
+      'Perumahan': {
+        icon: Home,
+        color: "from-orange-500 to-red-500",
+        bgColor: "bg-orange-50",
+        hoverColor: "hover:bg-orange-100",
+      },
+      'Sosial': {
+        icon: Users,
+        color: "from-blue-500 to-cyan-500",
+        bgColor: "bg-blue-50",
+        hoverColor: "hover:bg-blue-100",
+      },
+      'Ekonomi': {
+        icon: Building,
+        color: "from-purple-500 to-pink-500",
+        bgColor: "bg-purple-50",
+        hoverColor: "hover:bg-purple-100",
+      },
+      'Makanan': {
+        icon: Utensils,
+        color: "from-red-500 to-orange-500",
+        bgColor: "bg-red-50",
+        hoverColor: "hover:bg-red-100",
+      },
+    };
+
+    return styleMap[jenis] || {
+      icon: Heart,
+      color: "from-gray-500 to-gray-700",
+      bgColor: "bg-gray-50",
+      hoverColor: "hover:bg-gray-100",
+    };
+  };
+
+  // Data program dari controller - mapping ke format yang diharapkan
+  const featuredPrograms = programData ? programData.map(program => {
+    const style = mapProgramTypeToStyle(program.jenis);
+    return {
+      id: program.id,
+      title: program.judul,
+      description: program.isi,
+      category: program.jenis,
+      progress: 75, // Default value, bisa disesuaikan jika ada di database
+      image: program.foto || "/placeholder.svg",
+      icon: style.icon,
+      color: style.color,
+      bgColor: style.bgColor,
+      hoverColor: style.hoverColor,
+      status: program.status,
+      location: program.daerah,
+    };
+  }) : [
+    // Data default jika tidak ada data dari controller
     {
       id: 1,
       title: "Beasiswa Yatim Berprestasi",
@@ -54,9 +128,6 @@ export default function ProgramSection() {
       title: "Bantuan Kesehatan Dhuafa",
       description: "Program bantuan biaya pengobatan dan operasi untuk keluarga kurang mampu",
       category: "Kesehatan",
-      target: "5,000 Keluarga",
-      budget: "Rp 8 Miliar",
-      duration: "Berkelanjutan",
       progress: 60,
       image: "/indonesian-medical-care.png",
       icon: Stethoscope,
@@ -71,9 +142,6 @@ export default function ProgramSection() {
       title: "Rumah Layak Huni",
       description: "Program renovasi dan pembangunan rumah layak huni untuk keluarga prasejahtera",
       category: "Perumahan",
-      target: "500 Rumah",
-      budget: "Rp 12 Miliar",
-      duration: "18 Bulan",
       progress: 45,
       image: "/indonesian-house-construction.png",
       icon: Home,
@@ -83,7 +151,7 @@ export default function ProgramSection() {
       status: "Aktif",
       location: "Jawa & Sumatra",
     },
-  ]
+  ];
 
   const handleMouseMove = useCallback((e) => {
     const rect = programRef.current?.getBoundingClientRect()
@@ -297,13 +365,6 @@ export default function ProgramSection() {
             Berbagai program pemberdayaan yang dirancang khusus untuk mengangkat harkat dan martabat saudara-saudara
             kita yang membutuhkan di seluruh Indonesia.
           </p>
-
-          <div className="hero-program flex flex-wrap justify-center gap-4">
-            <Button className="bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-white px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300">
-              <BookOpen className="w-5 h-5 mr-2" />
-              Lihat Semua Program
-            </Button>
-          </div>
         </div>
 
         {/* Featured Programs */}
@@ -317,10 +378,10 @@ export default function ProgramSection() {
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {featuredPrograms.map((program, index) => {
-              const IconComponent = program.icon
+              const IconComponent = program.icon;
               return (
                 <Card
-                  key={program.id}
+                  key={program.id || index}
                   className={`featured-card ${program.bgColor} ${program.hoverColor} border-0 shadow-xl hover:shadow-2xl transition-all duration-500 group cursor-pointer hover:scale-105 overflow-hidden`}
                 >
                   <div className="relative">
@@ -331,7 +392,7 @@ export default function ProgramSection() {
                     />
                     <div className="absolute top-4 left-4">
                       <span className="bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-sm font-semibold text-green-700">
-                        {program.status}
+                        {program.status || "Aktif"}
                       </span>
                     </div>
                     <div className="absolute top-4 right-4">
@@ -353,12 +414,10 @@ export default function ProgramSection() {
                       {program.title}
                     </h4>
 
-                    <p className="text-gray-700 leading-relaxed mb-4">{program.description}</p>
+                    <p className="text-gray-700 leading-relaxed mb-4 line-clamp-3">
+                      {program.description}
+                    </p>
 
-                    <Button className="w-full bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-white rounded-lg">
-                      Lihat Detail
-                      <ArrowRight className="w-4 h-4 ml-2" />
-                    </Button>
                   </div>
                 </Card>
               )
