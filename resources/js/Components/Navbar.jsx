@@ -1,11 +1,10 @@
-"use client"
-
 import { useState, useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Menu, Heart, Users, Camera, Info, Newspaper, Home, Calculator } from "lucide-react"
 import { gsap } from "gsap"
 import { Link } from "@inertiajs/react"
+
 
 const navItems = [
     { name: "Home", href: "#", icon: Home },
@@ -26,10 +25,16 @@ export default function Navbar() {
     const actionsRef = useRef(null)
     const donateButtonRef = useRef(null)
 
-    // Smooth scroll function
+    // Enhanced smooth scroll function dengan fallback untuk berbagai browser
     const scrollToSection = (href) => {
         if (href === "#") {
-            window.scrollTo({ top: 0, behavior: "smooth" })
+            // Multiple fallback methods untuk scroll ke top
+            if (window.scrollTo) {
+                window.scrollTo({ top: 0, behavior: "smooth" })
+            } else {
+                // Fallback untuk browser lama
+                smoothScrollTo(0, 800)
+            }
             return
         }
 
@@ -37,23 +42,57 @@ export default function Navbar() {
         const targetElement = document.getElementById(targetId)
 
         if (targetElement) {
-            const offsetTop = targetElement.offsetTop - 80 // Account for sticky navbar
-            window.scrollTo({
-                top: offsetTop,
-                behavior: "smooth"
-            })
+            const offsetTop = targetElement.offsetTop - 80
+
+            // Check if browser supports smooth behavior
+            if ('scrollBehavior' in document.documentElement.style) {
+                window.scrollTo({
+                    top: offsetTop,
+                    behavior: "smooth"
+                })
+            } else {
+                // Fallback untuk browser yang tidak mendukung smooth behavior
+                smoothScrollTo(offsetTop, 800)
+            }
         }
+    }
+
+    // Custom smooth scroll implementation untuk browser lama
+    const smoothScrollTo = (targetPosition, duration) => {
+        const startPosition = window.pageYOffset
+        const distance = targetPosition - startPosition
+        const startTime = performance.now()
+
+        const easeInOutCubic = (t) => {
+            return t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1
+        }
+
+        const animation = (currentTime) => {
+            const timeElapsed = currentTime - startTime
+            const progress = Math.min(timeElapsed / duration, 1)
+
+            window.scrollTo(0, startPosition + distance * easeInOutCubic(progress))
+
+            if (timeElapsed < duration) {
+                requestAnimationFrame(animation)
+            }
+        }
+
+        requestAnimationFrame(animation)
     }
 
     // Handle navigation click
     const handleNavClick = (e, href) => {
         e.preventDefault()
         scrollToSection(href)
-        setIsOpen(false) // Close mobile menu if open
+        setIsOpen(false)
     }
 
-    // Detect active section on scroll
+    // Detect active section on scroll dengan throttling untuk performa
     useEffect(() => {
+
+        let ticking = false
+
         const handleScroll = () => {
             const sections = ["tentang", "informasi","kalkulator", "program", "berita", "gallery"]
             const scrollY = window.scrollY + 100
@@ -64,26 +103,48 @@ export default function Navbar() {
                 return
             }
 
-            // Find active section
-            for (const sectionId of sections) {
-                const element = document.getElementById(sectionId)
-                if (element) {
-                    const offsetTop = element.offsetTop
-                    const offsetHeight = element.offsetHeight
 
-                    if (scrollY >= offsetTop && scrollY < offsetTop + offsetHeight) {
-                        setActiveSection(sectionId)
-                        break
+        const handleScroll = () => {
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    const sections = ["tentang", "informasi", "program", "berita", "gallery"]
+                    const scrollY = window.pageYOffset + 100
+
+                    if (scrollY < 200) {
+                        setActiveSection("home")
+                        ticking = false
+                        return
                     }
-                }
+
+                    for (const sectionId of sections) {
+                        const element = document.getElementById(sectionId)
+                        if (element) {
+                            const offsetTop = element.offsetTop
+                            const offsetHeight = element.offsetHeight
+
+                            if (scrollY >= offsetTop && scrollY < offsetTop + offsetHeight) {
+                                setActiveSection(sectionId)
+                                break
+                            }
+                        }
+                    }
+                    ticking = false
+                })
+                ticking = true
             }
         }
 
-        window.addEventListener("scroll", handleScroll)
+        // Passive listener untuk performa yang lebih baik
+        window.addEventListener("scroll", handleScroll, { passive: true })
         return () => window.removeEventListener("scroll", handleScroll)
     }, [])
 
+    // Animation effects dengan conditional loading untuk performa
     useEffect(() => {
+        // Check if animations are supported and enabled
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+        if (prefersReducedMotion) return
+
         const nav = navRef.current
         const logo = logoRef.current
         const navItemsEl = navItemsRef.current
@@ -92,36 +153,38 @@ export default function Navbar() {
 
         if (!nav || !logo || !navItemsEl || !actionsEl || !donateBtn) return
 
-        // Timeline animasi masuk
-        const tl = gsap.timeline()
+        // Simple CSS animations instead of GSAP for better compatibility
+        nav.style.animation = 'slideDown 0.8s ease-out'
+        logo.style.animation = 'slideRight 0.6s ease-out 0.4s both'
 
-        tl.fromTo(nav, { y: -100, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" })
-          .fromTo(logo, { x: -50, opacity: 0 }, { x: 0, opacity: 1, duration: 0.6, ease: "back.out(1.7)" }, "-=0.4")
-          .fromTo(
-            navItemsEl.children,
-            { y: -30, opacity: 0 },
-            { y: 0, opacity: 1, duration: 0.5, stagger: 0.1, ease: "power2.out" },
-            "-=0.3"
-          )
-          .fromTo(
-            actionsEl.children,
-            { x: 50, opacity: 0 },
-            { x: 0, opacity: 1, duration: 0.5, stagger: 0.1, ease: "power2.out" },
-            "-=0.2"
-          )
+        // Animate nav items
+        Array.from(navItemsEl.children).forEach((child, index) => {
+            child.style.animation = `fadeInUp 0.5s ease-out ${0.1 * index + 0.3}s both`
+        })
 
-        // Simpan referensi untuk cleanup
+        // Animate action items
+        Array.from(actionsEl.children).forEach((child, index) => {
+            child.style.animation = `fadeInLeft 0.5s ease-out ${0.1 * index + 0.2}s both`
+        })
+
+        // Simple hover effects
         const navLinks = Array.from(navItemsEl.children)
         const allDonateButtons = [donateBtn, ...document.querySelectorAll('.donate-btn')].filter(Boolean)
 
-        // Hover effect pada link
         const handleLinkEnter = (e) => {
-            gsap.to(e.currentTarget, { scale: 1.05, duration: 0.3, ease: "power2.out" })
-            gsap.to(e.currentTarget.querySelector(".nav-icon"), { rotate: 360, duration: 0.6, ease: "power2.out" })
+            e.currentTarget.style.transform = 'scale(1.05)'
         }
         const handleLinkLeave = (e) => {
-            gsap.to(e.currentTarget, { scale: 1, duration: 0.3, ease: "power2.out" })
-            gsap.to(e.currentTarget.querySelector(".nav-icon"), { rotate: 0, duration: 0.3, ease: "power2.out" })
+            e.currentTarget.style.transform = 'scale(1)'
+        }
+
+        const handleBtnEnter = (e) => {
+            e.currentTarget.style.transform = 'scale(1.05)'
+            e.currentTarget.style.boxShadow = '0 8px 30px rgba(245, 158, 11, 0.6)'
+        }
+        const handleBtnLeave = (e) => {
+            e.currentTarget.style.transform = 'scale(1)'
+            e.currentTarget.style.boxShadow = ''
         }
 
         navLinks.forEach(link => {
@@ -129,77 +192,11 @@ export default function Navbar() {
             link.addEventListener("mouseleave", handleLinkLeave)
         })
 
-        // Animasi glow pada tombol donasi
-        const glowAnim = gsap.to(allDonateButtons, {
-            boxShadow: "0 0 20px rgba(245, 158, 11, 0.4), 0 0 40px rgba(245, 158, 11, 0.2)",
-            duration: 3,
-            repeat: -1,
-            yoyo: true,
-            ease: "power2.inOut",
-        })
-
-        // Hover effect tombol donasi
-        const handleBtnEnter = (e) => {
-            gsap.to(e.currentTarget, {
-                scale: 1.05,
-                duration: 0.3,
-                ease: "power2.out",
-            })
-            gsap.to(e.currentTarget, {
-                boxShadow: "0 8px 30px rgba(245, 158, 11, 0.6), 0 0 60px rgba(245, 158, 11, 0.3)",
-                duration: 0.3,
-            })
-        }
-        const handleBtnLeave = (e) => {
-            gsap.to(e.currentTarget, {
-                scale: 1,
-                duration: 0.3,
-                ease: "power2.out",
-            })
-        }
-
-        // Ripple effect
-        const handleBtnClick = (e) => {
-            const button = e.currentTarget
-            const rect = button.getBoundingClientRect()
-            const size = Math.max(rect.width, rect.height)
-            const x = e.clientX - rect.left - size / 2
-            const y = e.clientY - rect.top - size / 2
-
-            const ripple = document.createElement("span")
-            ripple.style.cssText = `
-                position: absolute;
-                width: ${size}px;
-                height: ${size}px;
-                left: ${x}px;
-                top: ${y}px;
-                border-radius: 50%;
-                background: rgba(255, 255, 255, 0.6);
-                pointer-events: none;
-                transform: scale(0);
-                opacity: 0.6;
-            `
-            ripple.classList.add("ripple-effect")
-            button.appendChild(ripple)
-
-            gsap.to(ripple, {
-                scale: 2,
-                opacity: 0,
-                duration: 0.6,
-                ease: "power2.out",
-                onComplete: () => ripple.remove(),
-            })
-
-            gsap.to(button, { scale: 0.98, duration: 0.1, yoyo: true, repeat: 1, ease: "power2.inOut" })
-        }
-
         allDonateButtons.forEach(btn => {
             btn.addEventListener("mouseenter", handleBtnEnter)
             btn.addEventListener("mouseleave", handleBtnLeave)
-            btn.addEventListener("click", handleBtnClick)
         })
 
-        // Cleanup: Hapus semua event dan animasi
         return () => {
             navLinks.forEach(link => {
                 link.removeEventListener("mouseenter", handleLinkEnter)
@@ -208,82 +205,132 @@ export default function Navbar() {
             allDonateButtons.forEach(btn => {
                 btn.removeEventListener("mouseenter", handleBtnEnter)
                 btn.removeEventListener("mouseleave", handleBtnLeave)
-                btn.removeEventListener("click", handleBtnClick)
             })
-            glowAnim.kill() // Hentikan animasi GSAP
         }
     }, [])
 
     return (
-        <nav
-            ref={navRef}
-            className="sticky top-0 z-50 w-full border-b border-green-200/50 bg-white/95 backdrop-blur-md supports-[backdrop-filter]:bg-white/80 shadow-lg shadow-green-100/20"
-        >
+        <>
             <style jsx>{`
+                @keyframes slideDown {
+                    from { transform: translateY(-100%); opacity: 0; }
+                    to { transform: translateY(0); opacity: 1; }
+                }
+
+                @keyframes slideRight {
+                    from { transform: translateX(-50px); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+
+                @keyframes fadeInUp {
+                    from { transform: translateY(-30px); opacity: 0; }
+                    to { transform: translateY(0); opacity: 1; }
+                }
+
+                @keyframes fadeInLeft {
+                    from { transform: translateX(50px); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+
+                @keyframes glow {
+                    0%, 100% { box-shadow: 0 0 20px rgba(245, 158, 11, 0.4); }
+                    50% { box-shadow: 0 0 40px rgba(245, 158, 11, 0.6); }
+                }
+
                 .donate-btn {
                     position: relative;
                     overflow: hidden;
+                    animation: glow 3s ease-in-out infinite;
+                    transition: all 0.3s ease;
                 }
-                .ripple-effect {
-                    position: absolute;
-                    border-radius: 50%;
-                    background: rgba(255, 255, 255, 0.6);
-                    pointer-events: none;
+
+                .nav-item {
+                    transition: all 0.3s ease;
                 }
-                .donate-btn::before {
-                    content: '';
-                    position: absolute;
-                    top: 0;
-                    left: -100%;
-                    width: 100%;
-                    height: 100%;
-                    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-                    transition: left 0.5s;
+
+                .nav-item:hover .nav-icon {
+                    transform: rotate(360deg);
+                    transition: transform 0.6s ease;
                 }
-                .donate-btn:hover::before {
-                    left: 100%;
+
+                /* CSS-only smooth scrolling dengan fallback */
+                html {
+                    scroll-behavior: smooth;
+                }
+
+                /* Fallback untuk browser yang tidak mendukung scroll-behavior */
+                @supports not (scroll-behavior: smooth) {
+                    html {
+                        scroll-behavior: auto;
+                    }
+                }
+
+                /* Optimasi untuk perangkat mobile */
+                @media (hover: none) and (pointer: coarse) {
+                    .nav-item:hover,
+                    .donate-btn:hover {
+                        transform: none !important;
+                    }
+                }
+
+                /* Respect user preferences untuk reduced motion */
+                @media (prefers-reduced-motion: reduce) {
+                    html {
+                        scroll-behavior: auto;
+                    }
+
+                    * {
+                        animation-duration: 0.01ms !important;
+                        animation-iteration-count: 1 !important;
+                        transition-duration: 0.01ms !important;
+                    }
                 }
             `}</style>
 
-            <div className="container mx-auto px-4">
-                <div className="flex h-16 items-center justify-between">
-                    {/* Logo */}
-                    <div ref={logoRef} className="flex items-center space-x-2">
-                        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-green-500 to-green-600 text-white shadow-lg">
-                            <Heart className="h-6 w-6" />
+            <nav
+                ref={navRef}
+                className="sticky top-0 z-50 w-full border-b border-green-200/50 bg-white/95 backdrop-blur-md supports-[backdrop-filter]:bg-white/80 shadow-lg shadow-green-100/20"
+            >
+                <div className="container mx-auto px-4">
+                    <div className="flex h-16 items-center justify-between">
+                        {/* Logo */}
+                        <div ref={logoRef} className="flex items-center space-x-2">
+                            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-green-500 to-green-600 text-white shadow-lg">
+                                <Heart className="h-6 w-6" />
+                            </div>
+                            <div className="flex flex-col">
+                                <span className="text-lg font-bold text-green-800">Zyra</span>
+                                <span className="text-xs text-green-600">Peduli Sesama</span>
+                            </div>
                         </div>
-                        <div className="flex flex-col">
-                            <span className="text-lg font-bold text-green-800">Zyra</span>
-                            <span className="text-xs text-green-600">Peduli Sesama</span>
+
+                        {/* Desktop Nav */}
+                        <div ref={navItemsRef} className="hidden md:flex md:items-center md:space-x-8">
+                            {navItems.map((item) => {
+                                const sectionId = item.href === "#" ? "home" : item.href.substring(1)
+                                const isActive = activeSection === sectionId
+
+                                return (
+                                    <a
+                                        key={item.name}
+                                        href={item.href}
+                                        onClick={(e) => handleNavClick(e, item.href)}
+                                        className={`nav-item group relative flex items-center space-x-2 px-3 py-2 text-sm font-medium rounded-lg hover:bg-green-50 cursor-pointer ${
+                                            isActive
+                                                ? "text-amber-500 bg-green-50"
+                                                : "text-green-700 hover:text-amber-500"
+                                        }`}
+                                    >
+                                        <item.icon className="nav-icon h-4 w-4" />
+                                        <span>{item.name}</span>
+                                        <span className={`absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-amber-400 to-amber-300 rounded-full transition-all duration-300 ${
+                                            isActive ? "w-full" : "w-0 group-hover:w-full"
+                                        }`}></span>
+                                    </a>
+                                )
+                            })}
                         </div>
-                    </div>
 
-                    {/* Desktop Nav */}
-                    <div ref={navItemsRef} className="hidden md:flex md:items-center md:space-x-8">
-                        {navItems.map((item) => {
-                            const sectionId = item.href === "#" ? "home" : item.href.substring(1)
-                            const isActive = activeSection === sectionId
-
-                            return (
-                                <a
-                                    key={item.name}
-                                    href={item.href}
-                                    onClick={(e) => handleNavClick(e, item.href)}
-                                    className={`nav-item group relative flex items-center space-x-2 px-3 py-2 text-sm font-medium transition-all duration-300 rounded-lg hover:bg-green-50 cursor-pointer ${
-                                        isActive
-                                            ? "text-amber-500 bg-green-50"
-                                            : "text-green-700 hover:text-amber-500"
-                                    }`}
-                                >
-                                    <item.icon className="nav-icon h-4 w-4" />
-                                    <span>{item.name}</span>
-                                    <span className={`absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-amber-400 to-amber-300 transition-all duration-300 rounded-full ${
-                                        isActive ? "w-full" : "w-0 group-hover:w-full"
-                                    }`}></span>
-                                </a>
-                            )
-                        })}
-                    </div>
 
                     {/* Desktop Actions */}
                     <a href="/zakat" ref={actionsRef} className="hidden md:flex md:items-center md:space-x-4">
@@ -298,49 +345,51 @@ export default function Navbar() {
                         </Button>
                     </a>
 
-                    {/* Mobile Menu */}
-                    <div className="md:hidden">
-                        <Sheet open={isOpen} onOpenChange={setIsOpen}>
-                            <SheetTrigger asChild>
-                                <Button variant="ghost" size="sm" className="h-9 w-9 p-0 text-green-700 hover:text-amber-500">
-                                    <Menu className="h-5 w-5" />
-                                    <span className="sr-only">Toggle menu</span>
-                                </Button>
-                            </SheetTrigger>
-                            <SheetContent side="right" className="w-80">
-                                <div className="flex flex-col space-y-4 mt-8">
-                                    <div className="flex items-center space-x-2 pb-4 border-b">
-                                        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-green-500 to-green-600 text-white shadow-lg">
-                                            <Heart className="h-6 w-6" />
-                                        </div>
-                                        <div className="flex flex-col">
-                                            <span className="text-lg font-bold text-green-800">Zyra</span>
-                                            <span className="text-xs text-green-600">Peduli Sesama</span>
-                                        </div>
-                                    </div>
 
-                                    <div className="flex flex-col space-y-2">
-                                        {navItems.map((item) => {
-                                            const sectionId = item.href === "#" ? "home" : item.href.substring(1)
-                                            const isActive = activeSection === sectionId
+                        {/* Mobile Menu */}
+                        <div className="md:hidden">
+                            <Sheet open={isOpen} onOpenChange={setIsOpen}>
+                                <SheetTrigger asChild>
+                                    <Button variant="ghost" size="sm" className="h-9 w-9 p-0 text-green-700 hover:text-amber-500">
+                                        <Menu className="h-5 w-5" />
+                                        <span className="sr-only">Toggle menu</span>
+                                    </Button>
+                                </SheetTrigger>
+                                <SheetContent side="right" className="w-80">
+                                    <div className="flex flex-col space-y-4 mt-8">
+                                        <div className="flex items-center space-x-2 pb-4 border-b">
+                                            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-green-500 to-green-600 text-white shadow-lg">
+                                                <Heart className="h-6 w-6" />
+                                            </div>
+                                            <div className="flex flex-col">
+                                                <span className="text-lg font-bold text-green-800">Zyra</span>
+                                                <span className="text-xs text-green-600">Peduli Sesama</span>
+                                            </div>
+                                        </div>
 
-                                            return (
-                                                <a
-                                                    key={item.name}
-                                                    href={item.href}
-                                                    onClick={(e) => handleNavClick(e, item.href)}
-                                                    className={`flex items-center space-x-3 rounded-lg px-3 py-3 text-sm font-medium transition-colors cursor-pointer ${
-                                                        isActive
-                                                            ? "bg-green-50 text-amber-500"
-                                                            : "text-green-700 hover:bg-green-50 hover:text-amber-500"
-                                                    }`}
-                                                >
-                                                    <item.icon className="h-5 w-5" />
-                                                    <span>{item.name}</span>
-                                                </a>
-                                            )
-                                        })}
-                                    </div>
+                                        <div className="flex flex-col space-y-2">
+                                            {navItems.map((item) => {
+                                                const sectionId = item.href === "#" ? "home" : item.href.substring(1)
+                                                const isActive = activeSection === sectionId
+
+                                                return (
+                                                    <a
+                                                        key={item.name}
+                                                        href={item.href}
+                                                        onClick={(e) => handleNavClick(e, item.href)}
+                                                        className={`flex items-center space-x-3 rounded-lg px-3 py-3 text-sm font-medium transition-colors cursor-pointer ${
+                                                            isActive
+                                                                ? "bg-green-50 text-amber-500"
+                                                                : "text-green-700 hover:bg-green-50 hover:text-amber-500"
+                                                        }`}
+                                                    >
+                                                        <item.icon className="h-5 w-5" />
+                                                        <span>{item.name}</span>
+                                                    </a>
+                                                )
+                                            })}
+                                        </div>
+
 
                                     <a href="/zakat" className="flex flex-col space-y-3 pt-4 border-t">
                                         <Button className="donate-btn relative bg-gradient-to-r from-green-500 to-amber-500 hover:from-green-600 hover:to-amber-600 text-white font-semibold px-10 py-4 h-14 transition-all duration-300 shadow-lg hover:shadow-xl border border-green-400 hover:border-amber-300 w-full text-base">
@@ -352,21 +401,10 @@ export default function Navbar() {
                                 </div>
                             </SheetContent>
                         </Sheet>
+
                     </div>
                 </div>
-            </div>
-
-            <style jsx global>{`
-                @keyframes gradient-shift {
-                    0% { background-position: 0% 50%; }
-                    50% { background-position: 100% 50%; }
-                    100% { background-position: 0% 50%; }
-                }
-
-                html {
-                    scroll-behavior: smooth;
-                }
-            `}</style>
-        </nav>
+            </nav>
+        </>
     )
 }

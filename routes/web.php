@@ -5,8 +5,10 @@ use App\Http\Controllers\LandingPage;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\ZakatController;
+use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\LandingPage;
+use App\Http\Controllers\ZakatController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\MustahikController;
@@ -19,6 +21,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/zakat', [ZakatController::class, 'index'])->name('zakat');
     Route::post('/zakat', [ZakatController::class, 'store'])->name('zakat.store');
 });
+
 
 
 
@@ -68,6 +71,13 @@ Route::middleware(['auth', 'admin'])->prefix('laporan')->name('laporan.')->group
 
 Route::middleware(['auth'])->group(function () {
     Route::resource('programs', ProgramController::class);
+    Route::get('berita', [BeritaController::class, 'index'])->name('berita.index');
+    Route::get('berita/create', [BeritaController::class, 'create'])->name('berita.create');
+    Route::post('berita', [BeritaController::class, 'store'])->name('berita.store');
+    Route::get('berita/{berita}', [BeritaController::class, 'show'])->name('berita.show');
+    Route::get('berita/{berita}/edit', [BeritaController::class, 'edit'])->name('berita.edit');
+    Route::post('berita/{berita}', [BeritaController::class, 'update'])->name('berita.update');
+    Route::delete('berita/{berita}', [BeritaController::class, 'destroy'])->name('berita.destroy');
 });
 
 // Gallery routes

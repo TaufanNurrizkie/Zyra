@@ -49,11 +49,10 @@ export default function AdminLayout({ children }) {
 
             {/* NAVBAR */}
             <nav
-                className={`backdrop-blur-xl bg-white/80 border-b border-white/20 shadow-xl fixed top-0 inset-x-0 z-40 transition-all duration-700 ${
-                    mounted
+                className={`backdrop-blur-xl bg-white/80 border-b border-white/20 shadow-xl fixed top-0 inset-x-0 z-40 transition-all duration-700 ${mounted
                         ? "translate-y-0 opacity-100"
                         : "-translate-y-full opacity-0"
-                }`}
+                    }`}
             >
                 <div className="h-16 flex items-center justify-between px-6">
                     {/* Tombol Hamburger */}
@@ -98,9 +97,8 @@ export default function AdminLayout({ children }) {
 
             {/* SIDEBAR */}
             <aside
-                className={`fixed left-0 top-0 w-80 h-full backdrop-blur-2xl bg-gradient-to-b from-emerald-600/90 via-teal-700/90 to-cyan-800/90 text-white shadow-2xl flex flex-col transform transition-all duration-500 ease-out z-50 border-r border-white/20 ${
-                    open ? "translate-x-0" : "-translate-x-full"
-                }`}
+                className={`fixed left-0 top-0 w-80 h-full backdrop-blur-2xl bg-gradient-to-b from-emerald-600/90 via-teal-700/90 to-cyan-800/90 text-white shadow-2xl flex flex-col transform transition-all duration-500 ease-out z-50 border-r border-white/20 ${open ? "translate-x-0" : "-translate-x-full"
+                    }`}
             >
                 {/* Glass overlay effect */}
                 <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-white/5 to-transparent pointer-events-none"></div>
@@ -167,22 +165,20 @@ export default function AdminLayout({ children }) {
                     <div className="space-y-8">
                         <div>
                             <h3
-                                className={`text-xs font-bold text-white/70 uppercase tracking-widest mb-4 px-3 transition-all duration-500 delay-100 ${
-                                    open
+                                className={`text-xs font-bold text-white/70 uppercase tracking-widest mb-4 px-3 transition-all duration-500 delay-100 ${open
                                         ? "opacity-100 translate-x-0"
                                         : "opacity-0 -translate-x-4"
-                                }`}
+                                    }`}
                             >
                                 ✨ Manajemen
                             </h3>
                             <div className="space-y-2">
                                 <a
                                     href="/admin"
-                                    className={`group w-full flex items-center gap-4 px-4 py-3.5 rounded-2xl text-sm font-semibold text-white/90 hover:text-white backdrop-blur-sm bg-white/10 hover:bg-white/20 transition-all duration-300 hover:scale-105 active:scale-95 hover:translate-x-2 border border-white/20 hover:border-white/30 hover:shadow-lg ${
-                                        open
+                                    className={`group w-full flex items-center gap-4 px-4 py-3.5 rounded-2xl text-sm font-semibold text-white/90 hover:text-white backdrop-blur-sm bg-white/10 hover:bg-white/20 transition-all duration-300 hover:scale-105 active:scale-95 hover:translate-x-2 border border-white/20 hover:border-white/30 hover:shadow-lg ${open
                                             ? "opacity-100 translate-x-0"
                                             : "opacity-0 -translate-x-4"
-                                    }`}
+                                        }`}
                                     style={{
                                         transitionDelay: open ? "200ms" : "0ms",
                                     }}
@@ -211,11 +207,10 @@ export default function AdminLayout({ children }) {
 
                                 <a
                                     href="/mustahik"
-                                    className={`group w-full flex items-center gap-4 px-4 py-3.5 rounded-2xl text-sm font-semibold text-white/90 hover:text-white backdrop-blur-sm bg-white/10 hover:bg-white/20 transition-all duration-300 hover:scale-105 active:scale-95 hover:translate-x-2 border border-white/20 hover:border-white/30 hover:shadow-lg ${
-                                        open
+                                    className={`group w-full flex items-center gap-4 px-4 py-3.5 rounded-2xl text-sm font-semibold text-white/90 hover:text-white backdrop-blur-sm bg-white/10 hover:bg-white/20 transition-all duration-300 hover:scale-105 active:scale-95 hover:translate-x-2 border border-white/20 hover:border-white/30 hover:shadow-lg ${open
                                             ? "opacity-100 translate-x-0"
                                             : "opacity-0 -translate-x-4"
-                                    }`}
+                                        }`}
                                     style={{
                                         transitionDelay: open ? "300ms" : "0ms",
                                     }}
@@ -244,11 +239,10 @@ export default function AdminLayout({ children }) {
 
                                 <a
                                     href="/admin/gallery"
-                                    className={`group w-full flex items-center gap-4 px-4 py-3.5 rounded-2xl text-sm font-semibold text-white/90 hover:text-white backdrop-blur-sm bg-white/10 hover:bg-white/20 transition-all duration-300 hover:scale-105 active:scale-95 hover:translate-x-2 border border-white/20 hover:border-white/30 hover:shadow-lg ${
-                                        open
+                                    className={`group w-full flex items-center gap-4 px-4 py-3.5 rounded-2xl text-sm font-semibold text-white/90 hover:text-white backdrop-blur-sm bg-white/10 hover:bg-white/20 transition-all duration-300 hover:scale-105 active:scale-95 hover:translate-x-2 border border-white/20 hover:border-white/30 hover:shadow-lg ${open
                                             ? "opacity-100 translate-x-0"
                                             : "opacity-0 -translate-x-4"
-                                    }`}
+                                        }`}
                                     style={{
                                         transitionDelay: open ? "300ms" : "0ms",
                                     }}
@@ -278,11 +272,10 @@ export default function AdminLayout({ children }) {
 
                                 <a
                                     href="/programs"
-                                    className={`group w-full flex items-center gap-4 px-4 py-3.5 rounded-2xl text-sm font-semibold text-white/90 hover:text-white backdrop-blur-sm bg-white/10 hover:bg-white/20 transition-all duration-300 hover:scale-105 active:scale-95 hover:translate-x-2 border border-white/20 hover:border-white/30 hover:shadow-lg ${
-                                        open
+                                    className={`group w-full flex items-center gap-4 px-4 py-3.5 rounded-2xl text-sm font-semibold text-white/90 hover:text-white backdrop-blur-sm bg-white/10 hover:bg-white/20 transition-all duration-300 hover:scale-105 active:scale-95 hover:translate-x-2 border border-white/20 hover:border-white/30 hover:shadow-lg ${open
                                             ? "opacity-100 translate-x-0"
                                             : "opacity-0 -translate-x-4"
-                                    }`}
+                                        }`}
                                     style={{
                                         transitionDelay: open ? "300ms" : "0ms",
                                     }}
@@ -311,12 +304,47 @@ export default function AdminLayout({ children }) {
                                 </a>
 
                                 <a
-                                    href="/laporan"
-                                    className={`group w-full flex items-center gap-4 px-4 py-3.5 rounded-2xl text-sm font-semibold text-white/90 hover:text-white backdrop-blur-sm bg-white/10 hover:bg-white/20 transition-all duration-300 hover:scale-105 active:scale-95 hover:translate-x-2 border border-white/20 hover:border-white/30 hover:shadow-lg ${
-                                        open
+                                    href="/berita"
+                                    className={`group w-full flex items-center gap-4 px-4 py-3.5 rounded-2xl text-sm font-semibold text-white/90 hover:text-white backdrop-blur-sm bg-white/10 hover:bg-white/20 transition-all duration-300 hover:scale-105 active:scale-95 hover:translate-x-2 border border-white/20 hover:border-white/30 hover:shadow-lg ${open
                                             ? "opacity-100 translate-x-0"
                                             : "opacity-0 -translate-x-4"
-                                    }`}
+                                        }`}
+                                    style={{
+                                        transitionDelay: open ? "300ms" : "0ms",
+                                    }}
+                                >
+                                    <div className="p-2 bg-gradient-to-br from-amber-400 to-orange-600 rounded-lg shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-110">
+                                        {/* News Icon */}
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            className="h-4 w-4"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke="currentColor"
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                strokeWidth={2}
+                                                d="M19 20H5a2 2 0 01-2-2V6a2
+                   2 0 012-2h14a2 2 0 012 2v12a2
+                   2 0 01-2 2zM7 10h10M7 14h6"
+                                            />
+                                        </svg>
+                                    </div>
+                                    <span className="flex-1 text-left">
+                                        Berita
+                                    </span>
+                                    <div className="w-2 h-2 bg-white/50 rounded-full group-hover:bg-white group-hover:scale-150 transition-all duration-300"></div>
+                                </a>
+
+
+                                <a
+                                    href="/laporan"
+                                    className={`group w-full flex items-center gap-4 px-4 py-3.5 rounded-2xl text-sm font-semibold text-white/90 hover:text-white backdrop-blur-sm bg-white/10 hover:bg-white/20 transition-all duration-300 hover:scale-105 active:scale-95 hover:translate-x-2 border border-white/20 hover:border-white/30 hover:shadow-lg ${open
+                                            ? "opacity-100 translate-x-0"
+                                            : "opacity-0 -translate-x-4"
+                                        }`}
                                     style={{
                                         transitionDelay: open ? "300ms" : "0ms",
                                     }}
@@ -351,11 +379,10 @@ export default function AdminLayout({ children }) {
                 {/* Footer */}
                 <div className="relative p-4 border-t border-white/20 bg-white/5 backdrop-blur-sm">
                     <div
-                        className={`flex items-center gap-4 mb-4 p-4 rounded-2xl backdrop-blur-sm bg-white/10 hover:bg-white/20 transition-all duration-300 hover:scale-105 active:scale-95 border border-white/20 ${
-                            open
+                        className={`flex items-center gap-4 mb-4 p-4 rounded-2xl backdrop-blur-sm bg-white/10 hover:bg-white/20 transition-all duration-300 hover:scale-105 active:scale-95 border border-white/20 ${open
                                 ? "opacity-100 translate-x-0"
                                 : "opacity-0 -translate-x-4"
-                        }`}
+                            }`}
                         style={{ transitionDelay: open ? "400ms" : "0ms" }}
                     >
                         <button
@@ -382,6 +409,7 @@ export default function AdminLayout({ children }) {
                     <button
                         type="button"
                         onClick={() => handleNavClick("/logout")}
+
                         className={`group w-full bg-gradient-to-r from-red-500 via-red-600 to-red-700 
         hover:from-red-600 hover:via-red-700 hover:to-red-800 
         text-white font-semibold py-3.5 px-4 rounded-2xl 
@@ -390,6 +418,7 @@ export default function AdminLayout({ children }) {
         border border-red-400/30 ${
             open ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4"
         }`}
+
                         style={{ transitionDelay: open ? "500ms" : "0ms" }}
                     >
                         <svg
@@ -416,20 +445,18 @@ export default function AdminLayout({ children }) {
 
             {/* KONTEN */}
             <main
-                className={`transition-all duration-500 ease-in-out pt-20 p-6 min-h-screen relative ${
-                    mounted
+                className={`transition-all duration-500 ease-in-out pt-20 p-6 min-h-screen relative ${mounted
                         ? "opacity-100 translate-y-0"
                         : "opacity-0 translate-y-8"
-                } ${open ? "ml-80" : "ml-0"}`}
+                    } ${open ? "ml-80" : "ml-0"}`}
             >
                 {children}
             </main>
 
             {/* FOOTER */}
             <footer
-                className={`backdrop-blur-xl bg-white/70 border-t border-white/20 shadow-md p-4 text-center text-sm text-gray-600 transition-all duration-500 ${
-                    open ? "ml-80" : "ml-0"
-                }`}
+                className={`backdrop-blur-xl bg-white/70 border-t border-white/20 shadow-md p-4 text-center text-sm text-gray-600 transition-all duration-500 ${open ? "ml-80" : "ml-0"
+                    }`}
             >
                 <div className="flex flex-col sm:flex-row items-center justify-between gap-2">
                     <p>

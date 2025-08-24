@@ -11,17 +11,22 @@ import FAQSection from "@/Pages/user/FaqSection.jsx";
 import CalculatorSection from "@/Pages/user/CalculatorSection.jsx";
 import { Calculator } from "lucide-react";
 
-export default function UserLayout({ children, gallery }) {
+export default function UserLayout({  children, mustahik, program, gallery, dana  }) {
     return (
         <div>
             <Navbar />
-            <HeroSection />
+             <HeroSection
+                mustahik={mustahik}
+                // donatur={donatur}
+                program={program}
+                dana={dana}
+            />
             <AboutSection />
             <InformationSection />
             <CalculatorSection />
-            <ProgramSection />
+            <ProgramSection programs={program} />
             <NewsSection />
-            <GallerySection gallery={gallery} /> {/* kirim data ke sini */}
+            <GallerySection gallery={gallery} />
             <FAQSection />
             <Footer />
             <ChatWidget />

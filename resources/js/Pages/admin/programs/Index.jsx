@@ -4,13 +4,13 @@ import AdminLayout from "@/Layouts/AdminLayout";
 import { Link, router } from "@inertiajs/react";
 import { useState } from "react";
 import Swal from "sweetalert2";
-import { 
-    Eye, 
-    Edit3, 
-    Trash2, 
-    Plus, 
-    MapPin, 
-    Tag, 
+import {
+    Eye,
+    Edit3,
+    Trash2,
+    Plus,
+    MapPin,
+    Tag,
     Calendar,
     Image as ImageIcon,
     Filter,
@@ -338,8 +338,8 @@ const FilterBar = ({ onSearch, onFilterChange, viewMode, onViewModeChange }) => 
                         <button
                             onClick={() => onViewModeChange('grid')}
                             className={`p-2 rounded-lg transition-all duration-200 ${
-                                viewMode === 'grid' 
-                                    ? 'bg-white shadow-md text-blue-600' 
+                                viewMode === 'grid'
+                                    ? 'bg-white shadow-md text-blue-600'
                                     : 'text-gray-500 hover:text-gray-700'
                             }`}
                         >
@@ -348,8 +348,8 @@ const FilterBar = ({ onSearch, onFilterChange, viewMode, onViewModeChange }) => 
                         <button
                             onClick={() => onViewModeChange('list')}
                             className={`p-2 rounded-lg transition-all duration-200 ${
-                                viewMode === 'list' 
-                                    ? 'bg-white shadow-md text-blue-600' 
+                                viewMode === 'list'
+                                    ? 'bg-white shadow-md text-blue-600'
                                     : 'text-gray-500 hover:text-gray-700'
                             }`}
                         >
