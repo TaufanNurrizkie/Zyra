@@ -64,7 +64,7 @@ export default function AdminIndex({ mustahik, relawanAktif, laporan, distributi
                 <ChartSection distribution={distribution} monthlyData={monthlyData} categoryData={categoryData} weeklyData={weeklyData}/>
 
                 {/* ✅ lempar data mustahik ke MapMustahik */}
-                <MapMustahik mustahik={mustahik} />
+                
 
                 <MustahikTable mustahik={mustahik} />
 
