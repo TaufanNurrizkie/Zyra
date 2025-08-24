@@ -1,20 +1,28 @@
 <?php
 
 use Inertia\Inertia;
+use App\Http\Controllers\LandingPage;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\LandingPage;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\MustahikController;
-use App\Http\Controllers\LaporanDistribusiController;
-use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\ZakatController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProgramController;
+use App\Http\Controllers\MustahikController;
 use App\Http\Controllers\TanyaiAiController;
+use App\Http\Controllers\LaporanDistribusiController;
 
-Route::get('/', [LandingPage::class, 'index']);
+Route::get('/', [LandingPage::class, 'index'])->name('Dashboard');
+// Zakat user routes
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/zakat', [ZakatController::class, 'index'])->name('zakat');
+    Route::post('/zakat', [ZakatController::class, 'store'])->name('zakat.store');
+});
+
+
 
 
 // Route::get('/', function () {
@@ -28,21 +36,8 @@ Route::get('/', [LandingPage::class, 'index']);
 
 
 Route::get('/admin', [AdminController::class, 'index'])
-    ->middleware(['auth', 'verified'])
+    ->middleware(['auth', 'admin'])
     ->name('admin');
-
-// Dashboard
-Route::get('/dashboard', fn() => Inertia::render('Dashboard'))
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
-
-// User pages
-Route::get('/informasi', fn() => Inertia::render('user/informasi/index'))
-    ->middleware(['auth', 'verified'])
-    ->name('informasi');
-
-Route::get('/kontak', fn() => Inertia::render('user/kontak/index'))
-    ->name('user.kontak');
 
 // Profile
 Route::middleware('auth')->group(function () {
@@ -52,7 +47,7 @@ Route::middleware('auth')->group(function () {
 });
 
 // Mustahik routes
-Route::middleware(['auth', 'verified'])->prefix('mustahik')->name('mustahik.')->group(function () {
+Route::middleware(['auth', 'admin'])->prefix('mustahik')->name('mustahik.')->group(function () {
     Route::get('/', [MustahikController::class, 'index'])->name('index');
     Route::get('/create', fn() => Inertia::render('admin/mustahik/Create'))->name('create');
     Route::post('/', [MustahikController::class, 'store'])->name('store');
@@ -65,7 +60,7 @@ Route::middleware(['auth', 'verified'])->prefix('mustahik')->name('mustahik.')->
 });
 
 // Laporan distribusi routes
-Route::middleware(['auth', 'verified'])->prefix('laporan')->name('laporan.')->group(function () {
+Route::middleware(['auth', 'admin'])->prefix('laporan')->name('laporan.')->group(function () {
     Route::get('/', [LaporanDistribusiController::class, 'index'])->name('index');
     Route::get('/create', [LaporanDistribusiController::class, 'create'])->name('create');
     Route::post('/', [LaporanDistribusiController::class, 'store'])->name('store');
@@ -86,20 +81,14 @@ Route::middleware(['auth'])->group(function () {
 });
 
 // Gallery routes
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/gallery', [GalleryController::class, 'index'])->name('admin.gallery.index');
     Route::post('/admin/gallery', [GalleryController::class, 'store'])->name('admin.gallery.store');
     Route::delete('/admin/gallery/{id}', [GalleryController::class, 'destroy'])->name('admin.gallery.destroy');
 });
 
 
-// Zakat user routes
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/zakat', [ZakatController::class, 'index'])->name('zakat.index');
-    Route::post('/zakat', [ZakatController::class, 'store'])->name('zakat.store');
-});
 
-// Tanyai Ai
-Route::middleware(['auth'])->post('/tanya-ai', [TanyaiAiController::class, 'ask'])->name('tanya.ai');
+
 
 require __DIR__ . '/auth.php';

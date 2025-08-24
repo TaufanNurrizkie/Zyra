@@ -1,12 +1,16 @@
 import { useState, useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { Menu, Heart, Users, Camera, Info, Newspaper, Home } from "lucide-react"
+import { Menu, Heart, Users, Camera, Info, Newspaper, Home, Calculator } from "lucide-react"
+import { gsap } from "gsap"
+import { Link } from "@inertiajs/react"
+
 
 const navItems = [
     { name: "Home", href: "#", icon: Home },
     { name: "Tentang", href: "#tentang", icon: Users },
     { name: "Informasi", href: "#informasi", icon: Info },
+    { name: "kalkulator", href: "#kalkulator", icon: Calculator },
     { name: "Program", href: "#program", icon: Heart },
     { name: "Berita", href: "#berita", icon: Newspaper },
     { name: "Gallery", href: "#gallery", icon: Camera },
@@ -86,7 +90,19 @@ export default function Navbar() {
 
     // Detect active section on scroll dengan throttling untuk performa
     useEffect(() => {
+
         let ticking = false
+
+        const handleScroll = () => {
+            const sections = ["tentang", "informasi","kalkulator", "program", "berita", "gallery"]
+            const scrollY = window.scrollY + 100
+
+            // Check if we're at the top
+            if (scrollY < 200) {
+                setActiveSection("home")
+                return
+            }
+
 
         const handleScroll = () => {
             if (!ticking) {
@@ -315,17 +331,20 @@ export default function Navbar() {
                             })}
                         </div>
 
-                        {/* Desktop Actions */}
-                        <div ref={actionsRef} className="hidden md:flex md:items-center md:space-x-4">
-                            <Button
-                                ref={donateButtonRef}
-                                size="lg"
-                                className="donate-btn bg-gradient-to-r from-green-500 to-amber-500 hover:from-green-600 hover:to-amber-600 text-white font-semibold px-10 py-3 h-12 shadow-lg hover:shadow-xl border border-green-400 hover:border-amber-300"
-                            >
-                                <Heart className="mr-2 h-5 w-5" />
-                                <span className="relative z-10 text-base">Donasi Sekarang</span>
-                            </Button>
-                        </div>
+
+                    {/* Desktop Actions */}
+                    <a href="/zakat" ref={actionsRef} className="hidden md:flex md:items-center md:space-x-4">
+                        <Button
+                            ref={donateButtonRef}
+                            size="lg"
+                            className="donate-btn relative bg-gradient-to-r from-green-500 to-amber-500 hover:from-green-600 hover:to-amber-600 text-white font-semibold px-10 py-3 h-12 transition-all duration-300 shadow-lg hover:shadow-xl border border-green-400 hover:border-amber-300"
+                        >
+                            <Heart className="mr-2 h-5 w-5" />
+                            <span className="relative z-10 text-base">Bayar Zakat Sekarang</span>
+                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 transform translate-x-[-100%] hover:translate-x-[100%] transition-transform duration-700"></div>
+                        </Button>
+                    </a>
+
 
                         {/* Mobile Menu */}
                         <div className="md:hidden">
@@ -371,16 +390,18 @@ export default function Navbar() {
                                             })}
                                         </div>
 
-                                        <div className="flex flex-col space-y-3 pt-4 border-t">
-                                            <Button className="donate-btn bg-gradient-to-r from-green-500 to-amber-500 hover:from-green-600 hover:to-amber-600 text-white font-semibold px-10 py-4 h-14 shadow-lg hover:shadow-xl border border-green-400 hover:border-amber-300 w-full text-base">
-                                                <Heart className="mr-2 h-5 w-5" />
-                                                <span className="relative z-10">Donasi Sekarang</span>
-                                            </Button>
-                                        </div>
-                                    </div>
-                                </SheetContent>
-                            </Sheet>
-                        </div>
+
+                                    <a href="/zakat" className="flex flex-col space-y-3 pt-4 border-t">
+                                        <Button className="donate-btn relative bg-gradient-to-r from-green-500 to-amber-500 hover:from-green-600 hover:to-amber-600 text-white font-semibold px-10 py-4 h-14 transition-all duration-300 shadow-lg hover:shadow-xl border border-green-400 hover:border-amber-300 w-full text-base">
+                                            <Heart className="mr-2 h-5 w-5 animate-bounce" />
+                                            <span className="relative z-10">Bayar Zakat Sekarang</span>
+                                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 transform translate-x-[-100%] hover:translate-x-[100%] transition-transform duration-700"></div>
+                                        </Button>
+                                    </a>
+                                </div>
+                            </SheetContent>
+                        </Sheet>
+
                     </div>
                 </div>
             </nav>
