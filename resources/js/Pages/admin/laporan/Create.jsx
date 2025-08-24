@@ -171,40 +171,57 @@ export default function Create() {
                             <div>
                                 <label htmlFor="jenis_bantuan" className="block text-sm font-medium text-gray-700 mb-2">
                                     <div className="flex items-center space-x-2">
-                                        <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                                        <svg
+                                            className="w-4 h-4 text-gray-400"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            viewBox="0 0 24 24"
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                strokeWidth="2"
+                                                d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
+                                            />
                                         </svg>
                                         <span>Jenis Bantuan</span>
                                     </div>
                                 </label>
+
                                 <div className="relative">
-                                    <input
-                                        type="text"
+                                    <select
                                         id="jenis_bantuan"
                                         value={data.jenis_bantuan}
                                         onChange={(e) => setData("jenis_bantuan", e.target.value)}
-                                        className={`w-full px-4 py-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 ${errors.jenis_bantuan ? 'border-red-300 bg-red-50' : 'border-gray-300 bg-white'
+                                        className={`w-full px-4 py-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 ${errors.jenis_bantuan
+                                                ? "border-red-300 bg-red-50"
+                                                : "border-gray-300 bg-white"
                                             }`}
-                                        placeholder="Contoh: Sembako, Uang Tunai, Alat Sekolah"
                                         required
-                                    />
-                                    <div className="absolute right-3 top-3">
-                                        <div className="flex space-x-1">
-                                            <span className="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-blue-100 text-blue-800">
-                                                Sembako
-                                            </span>
-                                        </div>
-                                    </div>
+                                    >
+                                        <option value="">-- Pilih Jenis Bantuan --</option>
+                                        <option value="Sosial">Sosial</option>
+                                        <option value="Ekonomi">Ekonomi</option>
+                                        <option value="Kesehatan">Kesehatan</option>
+                                        <option value="Pendidikan">Pendidikan</option>
+                                        <option value="Makanan">Makanan</option>
+                                    </select>
                                 </div>
+
                                 {errors.jenis_bantuan && (
                                     <div className="flex items-center mt-2 text-red-600 text-sm">
                                         <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                                            <path
+                                                fillRule="evenodd"
+                                                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                                                clipRule="evenodd"
+                                            />
                                         </svg>
                                         {errors.jenis_bantuan}
                                     </div>
                                 )}
                             </div>
+
 
                             {/* Dana Keluar */}
                             <div>

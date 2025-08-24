@@ -13,7 +13,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 // ...import dll tetap sama
 
-export default function AdminIndex({ mustahik }) {   // ✅ terima props dari Inertia
+export default function AdminIndex({ mustahik, relawanAktif, laporan, distribution, monthlyData, categoryData, weeklyData }) {   // ✅ terima props dari Inertia
     const containerRef = useRef(null);
 
     useEffect(() => {
@@ -60,8 +60,8 @@ export default function AdminIndex({ mustahik }) {   // ✅ terima props dari In
                     rootMargin="-100px"
                 />
 
-                <DashboardCards mustahik={mustahik}/>
-                <ChartSection />
+                <DashboardCards mustahik={mustahik} relawanAktif={relawanAktif} laporan={laporan}/>
+                <ChartSection distribution={distribution} monthlyData={monthlyData} categoryData={categoryData} weeklyData={weeklyData}/>
 
                 {/* ✅ lempar data mustahik ke MapMustahik */}
                 <MapMustahik mustahik={mustahik} />
