@@ -16,7 +16,8 @@ import {
     Share2
 } from "lucide-react"
 
-export default function HeroSection({ mustahik, program, dana }) {
+export default function HeroSection({ mustahik, program, dana, donatur, danaHariIni }) {
+
     const heroRef = useRef(null)
     const titleRef = useRef(null)
     const subtitleRef = useRef(null)
@@ -56,7 +57,7 @@ export default function HeroSection({ mustahik, program, dana }) {
         },
         {
             icon: Heart,
-            value: 50, // Donatur tetap menggunakan nilai default
+            value: donatur || 0,
             label: "Donatur Aktif",
             color: "text-amber-500",
             bgColor: "bg-amber-500/10",
@@ -219,7 +220,7 @@ export default function HeroSection({ mustahik, program, dana }) {
             }
         })
 
-        // Animate stats counter - menggunakan data dari props
+        // Animate stats counter - gunakan props mustahik, donatur, program, dana
         setTimeout(() => {
             let progress = 0
             const duration = 2500
@@ -231,9 +232,9 @@ export default function HeroSection({ mustahik, program, dana }) {
                 const easeProgress = 1 - Math.pow(1 - progress, 3)
 
                 setAnimatedStats({
-                    mustahik: Math.floor(easeProgress * (mustahik || 1200000)),
-                    donatur: Math.floor(easeProgress * 500000), // Nilai default
-                    program: Math.floor(easeProgress * (program || 50)),
+                    mustahik: Math.floor(easeProgress * (mustahik || 0)),
+                    donatur: Math.floor(easeProgress * (donatur || 0)),
+                    program: Math.floor(easeProgress * (program || 0)),
                     dana: Math.floor(easeProgress * (dana || 25000000)),
                 })
 
@@ -250,9 +251,10 @@ export default function HeroSection({ mustahik, program, dana }) {
         return () => {
             document.removeEventListener("mousemove", handleMouseMove)
         }
-    }, [handleMouseMove, mustahik, program, dana])
+    }, [handleMouseMove, mustahik, donatur, program, dana])
 
-    const formatNumber = (num) => {
+
+    const formatRupiah = (num) => {
         if (num >= 1000000000) return (num / 1000000000).toFixed(1) + 'M+'
         if (num >= 1000000) return (num / 1000000).toFixed(1) + 'Jt+'
         if (num >= 1000) return (num / 1000).toFixed(0) + 'Rb+'
@@ -337,9 +339,9 @@ export default function HeroSection({ mustahik, program, dana }) {
                         </div>
 
                         <div ref={buttonsRef} className="flex flex-col sm:flex-row gap-4 md:gap-6">
-                            <a href="/zakat"
-                                size="md"
-                                className="relative bg-gradient-to-r from-green-600 via-green-400 to-green-500 hover:from-green-700 hover:via-green-600 hover:to-green-500 text-white font-bold px-10 py-8 h-auto text-xl shadow-xl hover:shadow-2xl transition-all duration-500 group overflow-hidden border-2 border-amber-500/30 hover:border-amber-400/50 hover:scale-105"
+                            <a
+                                href="/zakat"
+                                className="relative inline-flex items-center justify-center bg-gradient-to-r from-green-600 via-green-400 to-green-500 hover:from-green-700 hover:via-green-600 hover:to-green-500 text-white font-bold px-10 py-8 text-xl rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 group overflow-hidden border-2 border-amber-500/30 hover:border-amber-400/50 hover:scale-105"
                                 onMouseEnter={() => handleInteraction('donate')}
                             >
                                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -skew-x-12 transform translate-x-[-300%] group-hover:translate-x-[300%] transition-transform duration-1000"></div>
@@ -348,10 +350,9 @@ export default function HeroSection({ mustahik, program, dana }) {
                                 <ArrowRight className="ml-4 h-5 w-5 group-hover:translate-x-2 group-hover:scale-110 transition-all duration-300" />
                             </a>
 
-                            <a href="#program"
-                                variant="outline"
-                                size="lg"
-                                className="border-2 border-amber-600 text-amber-700 hover:bg-amber-50 font-bold px-10 py-8 h-auto text-xl group transition-all duration-500 bg-white/70 backdrop-blur-lg hover:bg-white/90 hover:border-amber-700 hover:shadow-xl hover:scale-105"
+                            <a
+                                href="#program"
+                                className="inline-flex items-center justify-center border-2 border-amber-600 text-amber-700 hover:bg-amber-50 font-bold px-10 py-8 text-xl rounded-2xl group transition-all duration-500 bg-white/70 backdrop-blur-lg hover:bg-white/90 hover:border-amber-700 hover:shadow-xl hover:scale-105"
                                 onMouseEnter={() => handleInteraction('program')}
                             >
                                 <Play className="mr-4 h-5 w-5 group-hover:scale-125 group-hover:text-amber-600 transition-all duration-300" />
@@ -383,7 +384,7 @@ export default function HeroSection({ mustahik, program, dana }) {
                                             </div>
                                             <div>
                                                 <div className="font-bold text-green-800 text-base">Bantuan Tersalurkan</div>
-                                                <div className="text-gray-600 text-sm font-medium">Hari ini: Rp 2.5 Miliar</div>
+                                             <div className="text-gray-600 text-sm font-medium">Hari ini: Rp {formatRupiah(danaHariIni)}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -449,7 +450,7 @@ export default function HeroSection({ mustahik, program, dana }) {
                                         </div>
 
                                         <div className="text-3xl font-bold text-gray-800 mb-2 group-hover:text-green-700 transition-colors duration-300">
-                                            {formatNumber(animatedValue)}
+                                            {formatRupiah(animatedValue)}
                                         </div>
 
                                         <div className="text-gray-600 text-sm font-semibold group-hover:text-gray-800 transition-colors duration-300 mb-2">
