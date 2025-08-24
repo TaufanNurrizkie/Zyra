@@ -8,6 +8,8 @@ import NewsSection from "@/Pages/user/NewSection.jsx";
 import GallerySection from "@/Pages/user/GalerySection.jsx";
 import ChatWidget from "@/Pages/user/ChatWidget.jsx";
 import FAQSection from "@/Pages/user/FaqSection.jsx";
+import CalculatorSection from "@/Pages/user/CalculatorSection.jsx";
+import { Calculator } from "lucide-react";
 
 export default function UserLayout({ children, gallery }) {
     return (
@@ -16,6 +18,7 @@ export default function UserLayout({ children, gallery }) {
             <HeroSection />
             <AboutSection />
             <InformationSection />
+            <CalculatorSection />
             <ProgramSection />
             <NewsSection />
             <GallerySection gallery={gallery} /> {/* kirim data ke sini */}
