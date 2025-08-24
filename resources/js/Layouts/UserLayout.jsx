@@ -7,8 +7,9 @@ import ProgramSection from "@/Pages/user/ProgramSection.jsx";
 import NewsSection from "@/Pages/user/NewSection.jsx";
 import GallerySection from "@/Pages/user/GalerySection.jsx";
 import ChatWidget from "@/Pages/user/ChatWidget.jsx";
+import FAQSection from "@/Pages/user/FaqSection.jsx";
 
-export default function UserLayout() {
+export default function UserLayout({ children, gallery }) {
     return (
         <div>
             <Navbar />
@@ -17,10 +18,11 @@ export default function UserLayout() {
             <InformationSection />
             <ProgramSection />
             <NewsSection />
-            <GallerySection />
+            <GallerySection gallery={gallery} /> {/* kirim data ke sini */}
+            <FAQSection />
             <Footer />
-
             <ChatWidget />
+            {children}
         </div>
     );
 }

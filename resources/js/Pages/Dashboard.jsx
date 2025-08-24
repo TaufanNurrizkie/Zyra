@@ -2,11 +2,9 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 import UserLayout from '@/Layouts/UserLayout';
 
-export default function Dashboard() {
+export default function Dashboard({ gallery }) {
     return (
-
-        <UserLayout>
-            <h1 className="text-2xl font-bold mb-80">Halo dari Dashboard Mustahik!</h1>
+        <UserLayout gallery={gallery}>
         </UserLayout>
     );
 }

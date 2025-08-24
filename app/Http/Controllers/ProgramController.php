@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Program;
@@ -15,7 +14,6 @@ class ProgramController extends Controller
     public function index()
     {
         $programs = Program::latest()->get();
-
         return Inertia::render('admin/programs/Index', [
             'programs' => $programs,
         ]);
@@ -65,7 +63,7 @@ class ProgramController extends Controller
      */
     public function show(Program $program)
     {
-        return Inertia::render('admin/programs/Show', [
+        return Inertia::render('admin/programs/Detail', [
             'program' => $program,
         ]);
     }
@@ -85,7 +83,10 @@ class ProgramController extends Controller
      */
     public function update(Request $request, Program $program)
     {
-        $request->validate([
+        // Hapus dd() untuk debugging - ini yang menyebabkan proses terhenti
+        // dd($request->all());
+
+        $validated = $request->validate([
             'judul' => 'required|string|max:255',
             'isi' => 'required|string',
             'jenis' => 'required|string|max:100',
@@ -94,20 +95,26 @@ class ProgramController extends Controller
             'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
+        // Ambil foto lama
         $foto = $program->foto;
+
+        // Jika ada foto baru yang diupload
         if ($request->hasFile('foto')) {
-            if ($foto) {
+            // Hapus foto lama jika ada
+            if ($foto && Storage::disk('public')->exists($foto)) {
                 Storage::disk('public')->delete($foto);
             }
+            // Simpan foto baru
             $foto = $request->file('foto')->store('programs', 'public');
         }
 
+        // Update program
         $program->update([
-            'judul' => $request->judul,
-            'isi' => $request->isi,
-            'jenis' => $request->jenis,
-            'daerah' => $request->daerah,
-            'status' => $request->status,
+            'judul' => $validated['judul'],
+            'isi' => $validated['isi'],
+            'jenis' => $validated['jenis'],
+            'daerah' => $validated['daerah'],
+            'status' => $validated['status'],
             'foto' => $foto,
         ]);
 
@@ -119,7 +126,7 @@ class ProgramController extends Controller
      */
     public function destroy(Program $program)
     {
-        if ($program->foto) {
+        if ($program->foto && Storage::disk('public')->exists($program->foto)) {
             Storage::disk('public')->delete($program->foto);
         }
 

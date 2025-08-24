@@ -3,7 +3,7 @@ import AdminLayout from "@/Layouts/AdminLayout";
 import DashboardCards from "@/Components/DashboardCards";
 import ChartSection from "@/Components/ChartSection";
 import MustahikTable from "@/Components/MustahikTable";
-import MapMustahik from "@/Components/mapMustahik";
+import MapMustahik from "@/Components/MapMustahik";
 import SplitText from "@/Components/animasiText/SplitText";
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
@@ -27,7 +27,7 @@ export default function AdminIndex({ mustahik }) {   // ✅ terima props dari In
                 ease: "power3.out",
                 scrollTrigger: {
                     trigger: section,
-                    start: "top 80%", 
+                    start: "top 80%",
                     toggleActions: "play none none none",
                 },
                 delay: index * 0.2, // biar muncul berurutan

@@ -40,12 +40,12 @@ export default function Footer() {
   }
 
   const quickLinks = [
-    { name: "Dashboard", href: "/dashboard" },
-    { name: "Program Zakat", href: "/program/zakat" },
-    { name: "Bantuan Sosial", href: "/program/bantuan" },
-    { name: "Laporan Keuangan", href: "/laporan" },
-    { name: "Cara Berdonasi", href: "/donasi" },
-    { name: "FAQ", href: "/faq" },
+    { name: "Home", href: "#" },
+    { name: "Tentang", href: "#tentang" },
+    { name: "Informasi", href: "#informasi" },
+    { name: "program", href: "#program" },
+    { name: "Berita", href: "#berita" },
+    { name: "FAQ", href: "#faq" },
   ]
 
   const programs = [
