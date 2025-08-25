@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { Users, HandHeart, Layers, UserCheck } from "lucide-react";
 
-export default function DashboardCards({ mustahik, relawanAktif, laporan }) {
+export default function DashboardCards({ mustahik, relawanAktif, laporan, Program }) {
   const cardsRef = useRef([]);
 
   useEffect(() => {
@@ -31,15 +31,15 @@ export default function DashboardCards({ mustahik, relawanAktif, laporan }) {
     },
     {
       title: "Bantuan Disalurkan",
-      value: laporan.length,
+      value: laporan,
       icon: HandHeart,
       color: "from-green-500 to-green-600",
       bgColor: "bg-green-50",
       textColor: "text-green-700"
     },
     {
-      title: "Kategori Asnaf",
-      value: 8,
+      title: "Total Program",
+      value: Program,
       icon: Layers,
       color: "from-purple-500 to-purple-600",
       bgColor: "bg-purple-50",

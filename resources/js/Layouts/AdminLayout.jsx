@@ -49,10 +49,11 @@ export default function AdminLayout({ children }) {
 
             {/* NAVBAR */}
             <nav
-                className={`backdrop-blur-xl bg-white/80 border-b border-white/20 shadow-xl fixed top-0 inset-x-0 z-40 transition-all duration-700 ${mounted
+                className={`backdrop-blur-xl bg-white/80 border-b border-white/20 shadow-xl fixed top-0 inset-x-0 z-40 transition-all duration-700 ${
+                    mounted
                         ? "translate-y-0 opacity-100"
                         : "-translate-y-full opacity-0"
-                    }`}
+                }`}
             >
                 <div className="h-16 flex items-center justify-between px-6">
                     {/* Tombol Hamburger */}
@@ -97,8 +98,9 @@ export default function AdminLayout({ children }) {
 
             {/* SIDEBAR */}
             <aside
-                className={`fixed left-0 top-0 w-80 h-full backdrop-blur-2xl bg-gradient-to-b from-emerald-600/90 via-teal-700/90 to-cyan-800/90 text-white shadow-2xl flex flex-col transform transition-all duration-500 ease-out z-50 border-r border-white/20 ${open ? "translate-x-0" : "-translate-x-full"
-                    }`}
+                className={`fixed left-0 top-0 w-80 h-full backdrop-blur-2xl bg-gradient-to-b from-emerald-600/90 via-teal-700/90 to-cyan-800/90 text-white shadow-2xl flex flex-col transform transition-all duration-500 ease-out z-50 border-r border-white/20 ${
+                    open ? "translate-x-0" : "-translate-x-full"
+                }`}
             >
                 {/* Glass overlay effect */}
                 <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-white/5 to-transparent pointer-events-none"></div>
@@ -165,20 +167,22 @@ export default function AdminLayout({ children }) {
                     <div className="space-y-8">
                         <div>
                             <h3
-                                className={`text-xs font-bold text-white/70 uppercase tracking-widest mb-4 px-3 transition-all duration-500 delay-100 ${open
+                                className={`text-xs font-bold text-white/70 uppercase tracking-widest mb-4 px-3 transition-all duration-500 delay-100 ${
+                                    open
                                         ? "opacity-100 translate-x-0"
                                         : "opacity-0 -translate-x-4"
-                                    }`}
+                                }`}
                             >
                                 ✨ Manajemen
                             </h3>
                             <div className="space-y-2">
                                 <a
                                     href="/admin"
-                                    className={`group w-full flex items-center gap-4 px-4 py-3.5 rounded-2xl text-sm font-semibold text-white/90 hover:text-white backdrop-blur-sm bg-white/10 hover:bg-white/20 transition-all duration-300 hover:scale-105 active:scale-95 hover:translate-x-2 border border-white/20 hover:border-white/30 hover:shadow-lg ${open
+                                    className={`group w-full flex items-center gap-4 px-4 py-3.5 rounded-2xl text-sm font-semibold text-white/90 hover:text-white backdrop-blur-sm bg-white/10 hover:bg-white/20 transition-all duration-300 hover:scale-105 active:scale-95 hover:translate-x-2 border border-white/20 hover:border-white/30 hover:shadow-lg ${
+                                        open
                                             ? "opacity-100 translate-x-0"
                                             : "opacity-0 -translate-x-4"
-                                        }`}
+                                    }`}
                                     style={{
                                         transitionDelay: open ? "200ms" : "0ms",
                                     }}
@@ -192,10 +196,8 @@ export default function AdminLayout({ children }) {
                                             stroke="currentColor"
                                         >
                                             <path
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                strokeWidth={2}
-                                                d="M9 20l-5.447-2.724A2 2 0 013 15.382V5.618a2 2 0 01.553-1.394L9 2m0 18l6-3m-6 3V2m6 15l5.447 2.724A2 2 0 0021 18.382V8.618a2 2 0 00-.553-1.394L15 5m0 12V5"
+                                                fill="currentColor"
+                                                d="M13 9V3h8v6zM3 13V3h8v10zm10 8V11h8v10zM3 21v-6h8v6z"
                                             />
                                         </svg>
                                     </div>
@@ -207,10 +209,11 @@ export default function AdminLayout({ children }) {
 
                                 <a
                                     href="/mustahik"
-                                    className={`group w-full flex items-center gap-4 px-4 py-3.5 rounded-2xl text-sm font-semibold text-white/90 hover:text-white backdrop-blur-sm bg-white/10 hover:bg-white/20 transition-all duration-300 hover:scale-105 active:scale-95 hover:translate-x-2 border border-white/20 hover:border-white/30 hover:shadow-lg ${open
+                                    className={`group w-full flex items-center gap-4 px-4 py-3.5 rounded-2xl text-sm font-semibold text-white/90 hover:text-white backdrop-blur-sm bg-white/10 hover:bg-white/20 transition-all duration-300 hover:scale-105 active:scale-95 hover:translate-x-2 border border-white/20 hover:border-white/30 hover:shadow-lg ${
+                                        open
                                             ? "opacity-100 translate-x-0"
                                             : "opacity-0 -translate-x-4"
-                                        }`}
+                                    }`}
                                     style={{
                                         transitionDelay: open ? "300ms" : "0ms",
                                     }}
@@ -224,10 +227,12 @@ export default function AdminLayout({ children }) {
                                             stroke="currentColor"
                                         >
                                             <path
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                strokeWidth={2}
-                                                d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"
+                                                fill="currentColor"
+                                                d="M20 6c0-2.168-3.663-4-8-4S4 3.832 4 6v2c0 2.168 3.663 4 8 4s8-1.832 8-4zm-8 13c-4.337 0-8-1.832-8-4v3c0 2.168 3.663 4 8 4s8-1.832 8-4v-3c0 2.168-3.663 4-8 4"
+                                            />
+                                            <path
+                                                fill="currentColor"
+                                                d="M20 10c0 2.168-3.663 4-8 4s-8-1.832-8-4v3c0 2.168 3.663 4 8 4s8-1.832 8-4z"
                                             />
                                         </svg>
                                     </div>
@@ -239,10 +244,11 @@ export default function AdminLayout({ children }) {
 
                                 <a
                                     href="/admin/gallery"
-                                    className={`group w-full flex items-center gap-4 px-4 py-3.5 rounded-2xl text-sm font-semibold text-white/90 hover:text-white backdrop-blur-sm bg-white/10 hover:bg-white/20 transition-all duration-300 hover:scale-105 active:scale-95 hover:translate-x-2 border border-white/20 hover:border-white/30 hover:shadow-lg ${open
+                                    className={`group w-full flex items-center gap-4 px-4 py-3.5 rounded-2xl text-sm font-semibold text-white/90 hover:text-white backdrop-blur-sm bg-white/10 hover:bg-white/20 transition-all duration-300 hover:scale-105 active:scale-95 hover:translate-x-2 border border-white/20 hover:border-white/30 hover:shadow-lg ${
+                                        open
                                             ? "opacity-100 translate-x-0"
                                             : "opacity-0 -translate-x-4"
-                                        }`}
+                                    }`}
                                     style={{
                                         transitionDelay: open ? "300ms" : "0ms",
                                     }}
@@ -257,10 +263,10 @@ export default function AdminLayout({ children }) {
                                             stroke="currentColor"
                                         >
                                             <path
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                strokeWidth={2}
-                                                d="M4 16l4-4 4 4 4-4 4 4"
+                                                fill="currentColor"
+                                                fill-rule="evenodd"
+                                                d="M11.943 1.25h.114c2.309 0 4.118 0 5.53.19c1.444.194 2.584.6 3.479 1.494c.895.895 1.3 2.035 1.494 3.48c.19 1.411.19 3.22.19 5.529v.088c0 1.909 0 3.471-.104 4.743c-.104 1.28-.317 2.347-.795 3.235q-.314.586-.785 1.057c-.895.895-2.035 1.3-3.48 1.494c-1.411.19-3.22.19-5.529.19h-.114c-2.309 0-4.118 0-5.53-.19c-1.444-.194-2.584-.6-3.479-1.494c-.793-.793-1.203-1.78-1.42-3.006c-.215-1.203-.254-2.7-.262-4.558Q1.25 12.792 1.25 12v-.058c0-2.309 0-4.118.19-5.53c.194-1.444.6-2.584 1.494-3.479c.895-.895 2.035-1.3 3.48-1.494c1.411-.19 3.22-.19 5.529-.19m-5.33 1.676c-1.278.172-2.049.5-2.618 1.069c-.57.57-.897 1.34-1.069 2.619c-.174 1.3-.176 3.008-.176 5.386v.844l1.001-.876a2.3 2.3 0 0 1 3.141.104l4.29 4.29a2 2 0 0 0 2.564.222l.298-.21a3 3 0 0 1 3.732.225l2.83 2.547c.286-.598.455-1.384.545-2.493c.098-1.205.099-2.707.099-4.653c0-2.378-.002-4.086-.176-5.386c-.172-1.279-.5-2.05-1.069-2.62c-.57-.569-1.34-.896-2.619-1.068c-1.3-.174-3.008-.176-5.386-.176s-4.086.002-5.386.176"
+                                                clip-rule="evenodd"
                                             />
                                         </svg>
                                     </div>
@@ -272,10 +278,11 @@ export default function AdminLayout({ children }) {
 
                                 <a
                                     href="/programs"
-                                    className={`group w-full flex items-center gap-4 px-4 py-3.5 rounded-2xl text-sm font-semibold text-white/90 hover:text-white backdrop-blur-sm bg-white/10 hover:bg-white/20 transition-all duration-300 hover:scale-105 active:scale-95 hover:translate-x-2 border border-white/20 hover:border-white/30 hover:shadow-lg ${open
+                                    className={`group w-full flex items-center gap-4 px-4 py-3.5 rounded-2xl text-sm font-semibold text-white/90 hover:text-white backdrop-blur-sm bg-white/10 hover:bg-white/20 transition-all duration-300 hover:scale-105 active:scale-95 hover:translate-x-2 border border-white/20 hover:border-white/30 hover:shadow-lg ${
+                                        open
                                             ? "opacity-100 translate-x-0"
                                             : "opacity-0 -translate-x-4"
-                                        }`}
+                                    }`}
                                     style={{
                                         transitionDelay: open ? "300ms" : "0ms",
                                     }}
@@ -305,10 +312,11 @@ export default function AdminLayout({ children }) {
 
                                 <a
                                     href="/berita"
-                                    className={`group w-full flex items-center gap-4 px-4 py-3.5 rounded-2xl text-sm font-semibold text-white/90 hover:text-white backdrop-blur-sm bg-white/10 hover:bg-white/20 transition-all duration-300 hover:scale-105 active:scale-95 hover:translate-x-2 border border-white/20 hover:border-white/30 hover:shadow-lg ${open
+                                    className={`group w-full flex items-center gap-4 px-4 py-3.5 rounded-2xl text-sm font-semibold text-white/90 hover:text-white backdrop-blur-sm bg-white/10 hover:bg-white/20 transition-all duration-300 hover:scale-105 active:scale-95 hover:translate-x-2 border border-white/20 hover:border-white/30 hover:shadow-lg ${
+                                        open
                                             ? "opacity-100 translate-x-0"
                                             : "opacity-0 -translate-x-4"
-                                        }`}
+                                    }`}
                                     style={{
                                         transitionDelay: open ? "300ms" : "0ms",
                                     }}
@@ -338,13 +346,13 @@ export default function AdminLayout({ children }) {
                                     <div className="w-2 h-2 bg-white/50 rounded-full group-hover:bg-white group-hover:scale-150 transition-all duration-300"></div>
                                 </a>
 
-
                                 <a
                                     href="/laporan"
-                                    className={`group w-full flex items-center gap-4 px-4 py-3.5 rounded-2xl text-sm font-semibold text-white/90 hover:text-white backdrop-blur-sm bg-white/10 hover:bg-white/20 transition-all duration-300 hover:scale-105 active:scale-95 hover:translate-x-2 border border-white/20 hover:border-white/30 hover:shadow-lg ${open
+                                    className={`group w-full flex items-center gap-4 px-4 py-3.5 rounded-2xl text-sm font-semibold text-white/90 hover:text-white backdrop-blur-sm bg-white/10 hover:bg-white/20 transition-all duration-300 hover:scale-105 active:scale-95 hover:translate-x-2 border border-white/20 hover:border-white/30 hover:shadow-lg ${
+                                        open
                                             ? "opacity-100 translate-x-0"
                                             : "opacity-0 -translate-x-4"
-                                        }`}
+                                    }`}
                                     style={{
                                         transitionDelay: open ? "300ms" : "0ms",
                                     }}
@@ -379,10 +387,11 @@ export default function AdminLayout({ children }) {
                 {/* Footer */}
                 <div className="relative p-4 border-t border-white/20 bg-white/5 backdrop-blur-sm">
                     <div
-                        className={`flex items-center gap-4 mb-4 p-4 rounded-2xl backdrop-blur-sm bg-white/10 hover:bg-white/20 transition-all duration-300 hover:scale-105 active:scale-95 border border-white/20 ${open
+                        className={`flex items-center gap-4 mb-4 p-4 rounded-2xl backdrop-blur-sm bg-white/10 hover:bg-white/20 transition-all duration-300 hover:scale-105 active:scale-95 border border-white/20 ${
+                            open
                                 ? "opacity-100 translate-x-0"
                                 : "opacity-0 -translate-x-4"
-                            }`}
+                        }`}
                         style={{ transitionDelay: open ? "400ms" : "0ms" }}
                     >
                         <button
@@ -409,7 +418,6 @@ export default function AdminLayout({ children }) {
                     <button
                         type="button"
                         onClick={() => handleNavClick("/logout")}
-
                         className={`group w-full bg-gradient-to-r from-red-500 via-red-600 to-red-700 
         hover:from-red-600 hover:via-red-700 hover:to-red-800 
         text-white font-semibold py-3.5 px-4 rounded-2xl 
@@ -418,7 +426,6 @@ export default function AdminLayout({ children }) {
         border border-red-400/30 ${
             open ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4"
         }`}
-
                         style={{ transitionDelay: open ? "500ms" : "0ms" }}
                     >
                         <svg
@@ -445,18 +452,20 @@ export default function AdminLayout({ children }) {
 
             {/* KONTEN */}
             <main
-                className={`transition-all duration-500 ease-in-out pt-20 p-6 min-h-screen relative ${mounted
+                className={`transition-all duration-500 ease-in-out pt-20 p-6 min-h-screen relative ${
+                    mounted
                         ? "opacity-100 translate-y-0"
                         : "opacity-0 translate-y-8"
-                    } ${open ? "ml-80" : "ml-0"}`}
+                } ${open ? "ml-80" : "ml-0"}`}
             >
                 {children}
             </main>
 
             {/* FOOTER */}
             <footer
-                className={`backdrop-blur-xl bg-white/70 border-t border-white/20 shadow-md p-4 text-center text-sm text-gray-600 transition-all duration-500 ${open ? "ml-80" : "ml-0"
-                    }`}
+                className={`backdrop-blur-xl bg-white/70 border-t border-white/20 shadow-md p-4 text-center text-sm text-gray-600 transition-all duration-500 ${
+                    open ? "ml-80" : "ml-0"
+                }`}
             >
                 <div className="flex flex-col sm:flex-row items-center justify-between gap-2">
                     <p>
