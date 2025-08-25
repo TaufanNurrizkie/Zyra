@@ -4,7 +4,7 @@ import { TrendingUp, Users, Calendar, Target } from "lucide-react";
 
 const COLORS = ["#10b981", "#f59e0b", "#3b82f6", "#ef4444", "#6366f1", "#8b5cf6", "#ec4899", "#3b82f6", "#14b8a6"];
 
-export default function ChartSection({ distribution, monthlyData, categoryData, weeklyData }) {
+export default function ChartSection({ distribution, monthlyData, categoryData, weeklyData, totalPenerima,relawanAktif, persen }) {   // ✅ terima props dari parent
     // Data for different charts
     const colors = {
         fakir: "#10b981",
@@ -254,11 +254,11 @@ export default function ChartSection({ distribution, monthlyData, categoryData, 
                 <h3 className="text-xl sm:text-2xl font-bold text-gray-800 mb-4 sm:mb-6 text-center">Ringkasan Statistik</h3>
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
                     <div className="text-center bg-white bg-opacity-50 rounded-xl p-3 sm:p-4">
-                        <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-blue-600 mb-1 sm:mb-2">120</div>
+                        <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-blue-600 mb-1 sm:mb-2">{totalPenerima}</div>
                         <div className="text-xs sm:text-sm text-gray-600">Total Penerima</div>
                     </div>
                     <div className="text-center bg-white bg-opacity-50 rounded-xl p-3 sm:p-4">
-                        <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-green-600 mb-1 sm:mb-2">85%</div>
+                        <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-green-600 mb-1 sm:mb-2">{persen}%</div>
                         <div className="text-xs sm:text-sm text-gray-600">Tingkat Distribusi</div>
                     </div>
                     <div className="text-center bg-white bg-opacity-50 rounded-xl p-3 sm:p-4">
@@ -266,7 +266,7 @@ export default function ChartSection({ distribution, monthlyData, categoryData, 
                         <div className="text-xs sm:text-sm text-gray-600">Rating Kepuasan</div>
                     </div>
                     <div className="text-center bg-white bg-opacity-50 rounded-xl p-3 sm:p-4">
-                        <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-orange-600 mb-1 sm:mb-2">15</div>
+                        <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-orange-600 mb-1 sm:mb-2">{relawanAktif}</div>
                         <div className="text-xs sm:text-sm text-gray-600">Relawan Aktif</div>
                     </div>
                 </div>

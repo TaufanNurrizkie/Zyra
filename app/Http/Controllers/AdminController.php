@@ -1,9 +1,12 @@
 <?php
+
 namespace App\Http\Controllers;
+
 use Inertia\Inertia;
 use App\Models\Mustahik;
 use App\Models\Zakat;
 use App\Models\LaporanDistribusi;
+use App\Models\Program;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
@@ -12,8 +15,17 @@ class AdminController extends Controller
     public function index()
     {
         $mustahik = Mustahik::latest()->get();
+        $totalMustahik = Mustahik::count();
         $relawanAktif = Zakat::distinct('user_id')->count('user_id');
-        $laporan = LaporanDistribusi::latest()->get();
+        $laporan = LaporanDistribusi::count();
+        $totalPenerima = LaporanDistribusi::count();
+        $Program = Program::count();
+
+        $persen = 0;
+        if ($totalMustahik > 0) {
+            $persen = ($laporan / $totalMustahik) * 100;
+        }
+
 
         $distribution = Mustahik::select('golongan', DB::raw('count(*) as total'))
             ->where('status', 'sudah_dibantu')
@@ -97,6 +109,9 @@ class AdminController extends Controller
             'monthlyData' => $monthlyData,
             'categoryData' => $categoryData,
             'weeklyData' => $weeklyData,
+            'totalPenerima' => $totalPenerima,
+            'Program' => $Program,
+            'persen' => round($persen, 2),
         ]);
     }
 }
